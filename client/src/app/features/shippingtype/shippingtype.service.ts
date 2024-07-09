@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ShippingTypeService {
-  private apiURL = 'https://localhost:44389/api/ShippingType';
+  private apiURL = 'https://localhost:5000/api/ShippingType';
   constructor(private http: HttpClient) {}
 
   getShippingTypes(): Observable<any[]> {

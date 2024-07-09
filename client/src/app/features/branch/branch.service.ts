@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class BranchService {
-  private apiURL = 'https://localhost:44389/api/Branches';
+  private apiURL = 'https://localhost:5000/api/Branches';
 
   constructor(private http: HttpClient) {}
 

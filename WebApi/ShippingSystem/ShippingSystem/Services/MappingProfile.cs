@@ -54,8 +54,14 @@ namespace ShippingSystem.Services
 
             CreateMap<Privilege, PrivilegeDTO>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-                .ReverseMap();
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
+
+
+
+           CreateMap<PrivilegeDTO, Privilege>();
+              
+
+
 
             CreateMap<Governate, GovernateDto>().ReverseMap();
 

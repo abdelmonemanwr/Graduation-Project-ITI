@@ -18,17 +18,37 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this.privileges = this.authService.getPrivileges();
+    console.log(this.privileges)
   }
   
   hasPrivilege(privilegeName: string, permission: 'add' | 'delete' | 'update' | 'view'): boolean {
-    if (!this.privileges) 
-      return false;
-    return this.privileges.some(curPrivilege => 
-      this.privilegeService.getPrivilegeById(curPrivilege.privelege_Id).pipe(
-        map((privilegeDTO: PrivilegeDTO) => 
-          privilegeDTO.name === privilegeName && curPrivilege[permission] === true
-        )
-      ).toPromise()
-    );
+    // if (!this.privileges) 
+    //   return false;
+    // return this.privileges.some(curPrivilege => 
+    //   this.privilegeService.getPrivilegeById(curPrivilege.privelege_Id).pipe(
+    //     map((privilegeDTO: PrivilegeDTO) => 
+    //       privilegeDTO.name.toLowerCase() === privilegeName.toLowerCase() && curPrivilege[permission] === true
+    //     )
+    //   ).toPromise()
+    // );
+
+    // this.privileges?.forEach(curPrivilege => console.log(curPrivilege))
+      let privelegeFlag = false 
+
+    //   this.privileges?.some(curPrivilege => {
+    //     this.privilegeService.getPrivilegeById(curPrivilege.privelege_Id).subscribe({
+    //       next:(privelegeDto:PrivilegeDTO)=>{
+            
+    //         if(privelegeDto.name.toLowerCase() === privilegeName.toLowerCase() && curPrivilege[permission] === true)
+    //         {
+    //           privelegeFlag = true ;
+    //         }
+    //       }
+    //     })
+    //   }
+    // );
+
+    console.log(this.privileges?.forEach(cur=>console.log(cur)))
+    return privelegeFlag ;
   }
 }

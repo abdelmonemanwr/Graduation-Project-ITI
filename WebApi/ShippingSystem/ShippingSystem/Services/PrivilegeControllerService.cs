@@ -29,12 +29,12 @@ namespace ShippingSystem.Services
 
         public async Task<PrivilegeDTO?> GetPrivilegeNameById(int id)
         {
-            var privilege = unitOfWork.PrivilegeRepository.GetById(id);
+            var privilege = await unitOfWork.PrivilegeRepository.GetById(id);
             if(privilege == null)
             {
-                return await Task.FromResult<PrivilegeDTO?>(null);
+                return null;
             }
-            return await Task.FromResult(mapper.Map<PrivilegeDTO?>(privilege));
+            return mapper.Map<PrivilegeDTO?>(privilege);
         }
     }
 }
