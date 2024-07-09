@@ -2,7 +2,7 @@ import { Observable} from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Injectable,Inject } from '@angular/core';
-import { environment } from '../../../environments/environment';
+import { environment} from '../../../environments/environment'
 
 @Injectable({
   providedIn: 'root'

@@ -170,12 +170,12 @@ namespace ShippingSystem.Controllers
             var branch = await _context.Branches.FirstOrDefaultAsync(b => b.Name == merchantDTO.BranchName);
             if (branch == null)
             {
-                branch = new Branch { Name = merchantDTO.BranchName, AddingDate = DateTime.Now };
+                branch = new Branch { Name = merchantDTO.BranchName, AddingDate = DateTime.Now ,Status= true};
                 _context.Branches.Add(branch);
                 await _context.SaveChangesAsync();
             }
 
-            merchant.Branch = branch;
+            merchant.Branch_Id = branch.Id;
 
             foreach (var specialPriceDTO in merchantDTO.SpecialPrices)
             {
@@ -251,14 +251,41 @@ namespace ShippingSystem.Controllers
                 return NotFound();
             }
 
+            // Check if email is already used by another merchant
+            var existingMerchantByEmail = await _userManager.FindByEmailAsync(merchantDTO.Email);
+            if (existingMerchantByEmail != null && existingMerchantByEmail.Id != id)
+            {
+                return BadRequest($"Email '{merchantDTO.Email}' is already taken.");
+            }
+
+            // Check if username is already used by another merchant
+            var existingMerchantByUsername = await _userManager.FindByNameAsync(merchantDTO.UserName);
+            if (existingMerchantByUsername != null && existingMerchantByUsername.Id != id)
+            {
+                return BadRequest($"Username '{merchantDTO.UserName}' is already taken.");
+            }
+
             merchant.FullName = merchantDTO.FullName;
             merchant.UserName = merchantDTO.UserName;
             merchant.Email = merchantDTO.Email;
-            merchant.PasswordHash = merchantDTO.Password; 
+            merchant.PasswordHash = _userManager.PasswordHasher.HashPassword(merchant, merchantDTO.Password); // Hash the password
             merchant.PhoneNumber = merchantDTO.PhoneNumber;
             merchant.Address = merchantDTO.Address;
-            merchant.Governate.Name = merchantDTO.Governate;
-            merchant.City.Name = merchantDTO.City;
+
+            var MerchantGovernate = await _context.Governates.FirstOrDefaultAsync(g => g.Name == merchantDTO.Governate);
+            if (MerchantGovernate == null)
+            {
+                return BadRequest($"Invalid merchant governate name: {merchantDTO.Governate}");
+            }
+            merchant.Governate_Id = MerchantGovernate.Id;
+
+            var MerchantCity = await _context.Cities.FirstOrDefaultAsync(g => g.Name == merchantDTO.City);
+            if (MerchantCity == null)
+            {
+                return BadRequest($"Invalid merchant city name: {merchantDTO.City}");
+            }
+            merchant.City_Id = MerchantCity.Id;
+
             merchant.StoreName = merchantDTO.StoreName;
             merchant.SpecialPickupCost = merchantDTO.SpecialPickupCost;
             merchant.InCompleteShippingRatio = merchantDTO.InCompleteShippingRatio;
@@ -268,8 +295,7 @@ namespace ShippingSystem.Controllers
             {
                 return BadRequest($"Invalid branch name: {merchantDTO.BranchName}");
             }
-
-            merchant.Branch = branch;
+            merchant.Branch_Id = branch.Id;
 
             merchant.SpecialPrices.Clear();
             foreach (var specialPriceDTO in merchantDTO.SpecialPrices)
@@ -315,6 +341,7 @@ namespace ShippingSystem.Controllers
 
             return NoContent();
         }
+
 
         // DELETE: api/Merchants/5
         [HttpDelete("{id}")]

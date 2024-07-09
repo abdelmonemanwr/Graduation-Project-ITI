@@ -1,0 +1,68 @@
+.table-hover tbody tr:hover {
+    background-color: #e9f7fe;
+  }
+  td{
+    align-items: center;
+  }
+table{
+    height: 70vh;
+}
+  .page-link {
+    color: #0d4077; /* Blue color */
+  }
+  
+  .page-link:hover {
+    background-color: #e9f7fe;
+    border-color: #0d4077;
+  }
+  
+  .btn-primary {
+    background-color: #0d4077;
+    border-color: #0d4077;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0d4077;
+    border-color: #0d4077;
+  }
+  
+  .text-primary {
+    color: #0d4077 !important;
+  }
+
+  .FormModal{
+    width: 100vw;
+  }
+
+  h2{
+    font-weight: 100;
+    font-size: xxx-large;
+    margin: 2rem;
+  }
+
+  th,tr,td,.thead-dark{
+    font-size: 100;
+    font-size: medium;
+  }
+  /* Add this in styles.css or the component's CSS file */
+.rounded-icon-btn {
+  border-radius: 50%;
+  padding: 10px; /* Adjust padding as needed */
+  width: 40px;  /* Adjust width as needed */
+  height: 40px; /* Adjust height as needed */
+   /* display: flex;
+  align-items: center;
+  justify-content: center;  */
+  font-size: 1.2rem; /* Adjust icon size as needed */
+}
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}

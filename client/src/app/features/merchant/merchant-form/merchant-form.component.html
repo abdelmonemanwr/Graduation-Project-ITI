@@ -1,0 +1,197 @@
+<div class="FormContainer">
+  <div class="modal-body">
+    <form [formGroup]="merchantForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+      <!-- Full Name -->
+      <div class="form-group row">
+        <div class="col-10">
+          <input type="text" class="form-control form-control-lg" id="fullName" formControlName="fullName" [ngClass]="{'is-invalid': f.fullName.touched && f.fullName.invalid, 'is-valid': f.fullName.touched && f.fullName.valid}" required>
+          <div *ngIf="f.fullName.touched && f.fullName.invalid" class="invalid-feedback">
+            Full Name is required.
+          </div>
+        </div>
+        <label class="col-2 col-form-label col-form-label-lg" for="fullName">الاسم بالكامل</label>
+      </div>
+
+       <!-- Email -->
+       <div class="form-group row">
+        <div class="col-10">
+          <input type="email" class="form-control form-control-lg" id="email" formControlName="email" [ngClass]="{'is-invalid': f.email.touched && f.email.invalid, 'is-valid': f.email.touched && f.email.valid}" required>
+          <span *ngIf="f.email.touched && f.email.invalid" class="invalid-feedback">
+            Please provide a valid email address.
+          </span>
+        </div>
+        <label class="col-2 col-form-label col-form-label-lg" for="email">الايميل</label>
+      </div>
+
+     <!-- Phone Number -->
+     <div class="form-group row">
+      <div class="col-10">
+        <input type="tel" class="form-control form-control-lg" id="phoneNumber" formControlName="phoneNumber" [ngClass]="{'is-invalid': f.phoneNumber.touched && f.phoneNumber.invalid, 'is-valid': f.phoneNumber.touched && f.phoneNumber.valid}" required>
+        <div *ngIf="f.phoneNumber.touched && f.phoneNumber.invalid" class="invalid-feedback">
+          Phone Number is required.
+        </div>
+      </div>
+      <label class="col-2 col-form-label col-form-label-lg" for="phoneNumber">الهاتف</label>
+    </div>
+
+    <!-- Password -->
+    <div class="form-group row">
+      <div class="col-10">
+        <input type="password" class="form-control form-control-lg" id="password" formControlName="password" [ngClass]="{'is-invalid': f.password.touched && f.password.invalid, 'is-valid': f.password.touched && f.password.valid}" required>
+        <div *ngIf="f.password.touched && f.password.invalid" class="invalid-feedback">
+          مطلوب يجب ان يحتوي علي 8 خانات ورقم ورمز وحرف صغير وحرف كبير علي الاقل
+        </div>
+      </div>
+      <label class="col-2 col-form-label col-form-label-lg" for="password">الرقم السري</label>
+    </div>
+
+    <!-- Username -->
+    <div class="form-group row">
+      <div class="col-10">
+        <input type="text" class="form-control form-control-lg" id="userName" formControlName="userName" [ngClass]="{'is-invalid': f.userName.touched && f.userName.invalid, 'is-valid': f.userName.touched && f.userName.valid}" required>
+        <div *ngIf="f.userName.touched && f.userName.invalid" class="invalid-feedback">
+          مطلوب لا يجب وجود مسافات
+        </div>
+      </div>
+      <label class="col-2 col-form-label col-form-label-lg" for="userName">اسم المستخدم</label>
+    </div>
+
+    <!-- Address -->
+    <div class="form-group row">
+      <div class="col-10">
+        <input type="text" class="form-control form-control-lg" id="address" formControlName="address" [ngClass]="{'is-invalid': f.address.touched && f.address.invalid, 'is-valid': f.address.touched && f.address.valid}" required>
+        <div *ngIf="f.address.touched && f.address.invalid" class="invalid-feedback">
+          مطلوب
+        </div>
+      </div>
+      <label class="col-2 col-form-label col-form-label-lg" for="address">العنوان</label>
+    </div>
+
+    <!-- Governate -->
+     <!-- Governate Combobox -->
+     <div class="form-group row">
+      <div class="col-10">
+        <select class="form-control form-control-lg" id="governate" formControlName="governate" [ngClass]="{'is-invalid': f.governate.touched && f.governate.invalid, 'is-valid': f.governate.touched && f.governate.valid}" required (change)="onGovernateChange($event)">
+          <option value="" disabled>Select Governate</option>
+          <option *ngFor="let governate of governates" [value]="governate.name">{{ governate.name }}</option>
+        </select>
+        <div *ngIf="f.governate.touched && f.governate.invalid" class="invalid-feedback">
+          Governate is required.
+        </div>
+      </div>
+      <label class="col-2 col-form-label col-form-label-lg" for="governate">المحافظه</label>
+    </div>
+
+    <!-- City Combobox -->
+    <div class="form-group row">
+      <div class="col-10">
+        <select class="form-control form-control-lg" id="city" formControlName="city" [ngClass]="{'is-invalid': f.city.touched && f.city.invalid, 'is-valid': f.city.touched && f.city.valid}" required>
+          <option value="" disabled>Select City</option>
+          <option *ngFor="let city of cities" [value]="city.name">{{ city.name }}</option>
+        </select>
+        <div *ngIf="f.city.touched && f.city.invalid" class="invalid-feedback">
+          City is required.
+        </div>
+      </div>
+      <label class="col-2 col-form-label col-form-label-lg" for="city">المدينه</label>
+    </div>
+
+    <!-- Store Name -->
+    <div class="form-group row">
+      <div class="col-10">
+        <input type="text" class="form-control form-control-lg" id="storeName" formControlName="storeName" [ngClass]="{'is-invalid': f.storeName.touched && f.storeName.invalid, 'is-valid': f.storeName.touched && f.storeName.valid}" required>
+        <div *ngIf="f.storeName.touched && f.storeName.invalid" class="invalid-feedback">
+          مطلوب
+        </div>
+      </div>
+      <label class="col-2 col-form-label col-form-label-lg" for="storeName">اسم المتجر</label>
+    </div>
+
+    <!-- Special Pickup Cost -->
+    <div class="form-group row">
+      <div class="col-10">
+        <input type="number" class="form-control form-control-lg" id="specialPickupCost" formControlName="specialPickupCost" [ngClass]="{'is-invalid': f.specialPickupCost.touched && f.specialPickupCost.invalid, 'is-valid': f.specialPickupCost.touched && f.specialPickupCost.valid}" required>
+        <div *ngIf="f.specialPickupCost.touched && f.specialPickupCost.invalid" class="invalid-feedback">
+          Special Pickup Cost is required.
+        </div>
+      </div>
+      <label class="col-2 col-form-label col-form-label-lg" for="specialPickupCost">تكلفه خاصه</label>
+    </div>
+
+    <!-- Incomplete Shipping Ratio -->
+    <div class="form-group row">
+      <div class="col-10">
+        <input type="number" class="form-control form-control-lg" id="inCompleteShippingRatio" formControlName="inCompleteShippingRatio" [ngClass]="{'is-invalid': f.inCompleteShippingRatio.touched && f.inCompleteShippingRatio.invalid, 'is-valid': f.inCompleteShippingRatio.touched && f.inCompleteShippingRatio.valid}" required>
+        <div *ngIf="f.inCompleteShippingRatio.touched && f.inCompleteShippingRatio.invalid" class="invalid-feedback">
+          مطلوب
+        </div>
+      </div>
+      <label class="col-2 col-form-label col-form-label-lg" for="inCompleteShippingRatio">نسبه تحمل الطلبات غير المكتمله</label>
+    </div>
+
+    <!-- Branch Name -->
+    <div class="form-group row">
+      <div class="col-10">
+        <input type="text" class="form-control form-control-lg" id="branchName" formControlName="branchName" [ngClass]="{'is-invalid': f.branchName.touched && f.branchName.invalid, 'is-valid': f.branchName.touched && f.branchName.valid}" required>
+        <div *ngIf="f.branchName.touched && f.branchName.invalid" class="invalid-feedback">
+          مطلوب
+        </div>
+      </div>
+      <label class="col-2 col-form-label col-form-label-lg" for="branchName">اسم الفرع</label>
+    </div>
+      <!-- Special Prices Table -->
+     <!-- Special Prices Table -->
+<div class="form-group">
+  <label class="text-center  d-block">اسعار خاصه للمدن</label>
+  <table class="table table-primary">
+    <thead class="thead-dark">
+      <tr>
+        <th>المحافظه</th>
+        <th>المدينه</th>
+        <th>تكلفه النقل</th>
+        <th>الاعدادات</th>
+      </tr>
+    </thead>
+    <tbody formArrayName="specialPrices">
+      <tr *ngFor="let specialPrice of specialPrices.controls; let i = index" [formGroupName]="i">
+        <td>
+          <select class="form-control" formControlName="governate" (change)="onSpecialGovernateChange($event, i)">
+            <option value="" disabled>Select Governate</option>
+            <option *ngFor="let governate of governates" [value]="governate.name">{{ governate.name }}</option>
+          </select>
+          <!-- <div *ngIf="isInvalid(i, 'governate')" class="invalid-feedback">
+            Governate is required.
+          </div> -->
+        </td>
+        <td>
+          <select class="form-control" formControlName="city">
+            <option value="" disabled>Select City</option>
+            <option *ngFor="let city of specialCities[i]" [value]="city.name">{{ city.name }}</option>
+          </select>
+          <!-- <div *ngIf="isInvalid(i, 'city')" class="invalid-feedback">
+            City is required.
+          </div> -->
+        </td>
+        <td><input type="number" class="form-control" formControlName="transportCost" required></td>
+        <td>
+          <button type="button" class="btn btn-sm btn-danger" (click)="removeSpecialPrice(i)">
+            <i class="fa fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button type="button" class="btn btn-success" (click)="addSpecialPrice()">
+    <i class="fa fa-plus"></i>
+  </button>
+</div>
+
+      <!-- Submit Button -->
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary m-2">
+          <i class="fa fa-save"></i> حفظ بيانات التاجر
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

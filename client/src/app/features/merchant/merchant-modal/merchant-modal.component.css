@@ -1,0 +1,175 @@
+/* Custom styles for MerchantDetailModalComponent */
+
+.merchant-modal-title {
+    font-size: 1.75rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #007bff;
+  }
+  
+  .merchant-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #dee2e6;
+    margin-bottom: 1rem;
+  }
+  
+  .merchant-modal-body {
+    padding: 1rem;
+    background-color: #f8f9fa;
+  }
+  
+  .merchant-modal-body p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    color: #495057;
+  }
+  
+  .special-prices-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 1.5rem;
+    color: #28a745;
+  }
+  
+  .table {
+    margin-top: 1rem;
+  }
+  
+  .table th {
+    background-color: #6c757d;
+    color: white;
+  }
+  
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0,0,0,.05);
+  }
+  
+  .merchant-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 1rem;
+    border-top: 2px solid #dee2e6;
+    margin-top: 1rem;
+  }
+  
+  .text-danger {
+    color: #dc3545 !important;
+  }
+  .modalContainer{
+    padding: 10px;
+    height: 90vh;
+  }
+  
+/* Form Container */
+.FormContainer {
+    padding: 20px;
+    background-color: #f8f9fa; /* Light gray background */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+  /* Labels */
+  .col-form-label {
+    font-weight: bold;
+  }
+  
+  /* Input Fields */
+  .form-control {
+    border-radius: 4px;
+    border: 1px solid #ced4da; /* Light gray border */
+    transition: border-color 0.3s ease-in-out;
+  }
+  
+  .form-control:focus {
+    border-color: #007bff; /* Blue border on focus */
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.25); /* Subtle blue shadow */
+  }
+  
+  /* Buttons */
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+  }
+  
+  .btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+  }
+  
+  .btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+  }
+  
+  .btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+  }
+  
+  .btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+  }
+  
+  /* Table */
+  .table {
+    margin-bottom: 0;
+  }
+  
+  .table th, .table td {
+    vertical-align: middle;
+  }
+  
+  .thead-dark th {
+    background-color: #343a40;
+    color: #fff;
+  }
+  
+  /* Validation Feedback */
+  .invalid-feedback {
+    display: block;
+    color: #dc3545;
+  }
+  
+  /* Modal Header */
+  .modal-header {
+    border-bottom: none;
+  }
+  
+  /* Modal Footer */
+  .modal-footer {
+    border-top: none;
+    justify-content: center;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  /* Utilities */
+  .m-2 {
+    margin: 0.5rem;
+  }
+  /* .merchant-modal-title{
+    text-align: center;
+  } */
+  /* .merchant-modal-header{
+    text-align: center;
+  } */
+  /* .merchant-modal-title {
+    text-align: center !important; 
+}
+ */
+ .form-group{
+  margin-top:1em ;
+  margin-bottom: 1em;
+} 
