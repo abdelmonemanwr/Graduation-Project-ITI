@@ -24,7 +24,7 @@ export enum OrderStatus {
   RejectedWithPaying = 'تم الرفض مع الدفع',
   RejectedWithPartialPaying = 'رفض مع سداد جزء',
   RejectedFromEmployee = 'رفض ولم يتم الدفع'
-}
+  }
   
   export enum OrderType {
     Normal = 'الاستلام من الفرع ',

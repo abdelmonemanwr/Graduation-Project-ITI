@@ -1,4 +1,4 @@
-<div class="container py-5 mx-auto">
+<div class="container py-5 mx-auto ">
     <div class="row">
 
       <div class="col-12">
@@ -12,7 +12,7 @@
        <div class="d-flex justify-content-between align-items-center">
             <form class="d-flex justify-content-between form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2  me-4" type="search" placeholder="بحث عن محافظة" aria-label="Search" [(ngModel)] = "governateName" name="governateName">
-                <button class="btn btn-outline-secondary my-2 my-sm-0" type="button" (click)="search()">Search</button>
+                <button class="btn btn-secondary my-2 my-sm-0" type="button" (click)="search()">Search</button>
             </form>
     
     
@@ -64,7 +64,47 @@
         [currentPage]="pageNumber"
         (pageChange)="onPageChange($event)">
         </app-pagination>
-        </div>
+        </div> -->
+
+        <div class="row justify-content-center my-3 ">
+          <div class="col-12">
+              <table class="table text-center my-4" id="tableId">
+                  <thead class="table-primary">
+                      <tr class="text-center">
+                          <th class="text-left">الاعدادات</th>
+                          <th class="text-left">الحالة</th>
+                          <th class="text-left">المحافظة</th>
+                          <th class="text-left">#</th>
+                      </tr>
+                  </thead>
+                  <tbody class="text-center">
+                      <tr *ngFor="let gover of governates">
+                          <td scope="row" class="text-center">
+                              <div class="d-flex justify-content-center">
+                                  <i class="bi bi-trash3-fill text-danger me-2 fs-4" (click)="deleteGovernate(gover.id)"></i>
+                                  <i class="mx-1 fs-5 text-info bi bi-pencil-square fs-4" (click)="editGovernate(gover)"></i>
+                              </div>
+                          </td>
+                          <td class="text-center">
+                              <div class="form-check form-switch d-flex justify-content-center">
+                                  <input class="form-check-input fs-5" type="checkbox" role="switch" id="flexSwitchCheckDefault" [checked]="gover.status">
+                              </div>
+                          </td>
+                          <td class="text-center fs-5">{{ gover.name }}</td>
+                          <td class="text-center fs-5">{{ gover.id }}</td>
+                      </tr>
+                  </tbody>
+              </table>
+      
+              <app-pagination
+                  [totalItems]="totalItems"
+                  [itemsPerPage]="pageSize"
+                  [currentPage]="pageNumber"
+                  (pageChange)="onPageChange($event)">
+              </app-pagination>
+          </div>
+      </div>
+      
         <div class="modal"  [ngClass]="{'d-block' :modalOpen}" tab-index="-1">
             <div class="modal-dialog">
               <div class="modal-content">

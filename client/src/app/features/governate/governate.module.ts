@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { GovernateComponentComponent } from './governate-component/governate-component.component';
 import { GovernateRoutingModule } from './governate-routing.module';
 import { GovernateComponent } from './governate/governate.component';
-import { SharedModule } from '../../shared/modules/shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 import { FormGroup, FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
@@ -11,7 +11,7 @@ import { PaginationComponent } from '../../shared/components/pagination/paginati
 @NgModule({
   declarations: [
     GovernateComponentComponent,
-    GovernateComponent
+   GovernateComponent,
   ],
   imports: [
     CommonModule,
@@ -20,5 +20,8 @@ import { PaginationComponent } from '../../shared/components/pagination/paginati
     FormsModule,
     SharedModule
   ],
+  exports:[
+
+  ]
 })
 export class GovernateModule { }

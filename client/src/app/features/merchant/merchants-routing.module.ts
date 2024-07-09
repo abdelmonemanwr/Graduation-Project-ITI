@@ -6,7 +6,9 @@
     const routes: Routes = [
         { path: '', component: MerchantListComponent },
         { path: 'new', component: MerchantFormComponent },
-        { path: 'edit/:id', component: MerchantFormComponent }
+        { path: 'edit/:id', component: MerchantFormComponent },
+    //   { path: '', redirectTo: 'merchants', pathMatch: 'full' },
+    //   { path: '**', redirectTo: 'merchants' }  // Redirect any other path to 'merchants'
     ];
 
     @NgModule({

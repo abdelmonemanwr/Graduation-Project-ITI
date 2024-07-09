@@ -5,6 +5,9 @@ import { authGuard } from './features/auth/auth.guard';
 import { LoginComponent } from './features/auth/login/login.component';
 
 const routes: Routes = [
+  {path:'governate',loadChildren:()=>import('./features/governate/governate.module').then(m=>m.GovernateModule)},
+  {path:'city',loadChildren:()=>import('./features/city/city.module').then(m=>m.CityModule)},
+  { path: 'merchants', loadChildren: () => import('./features/merchant/merchants.module').then(m => m.MerchantsModule) },
   { path: 'auth', loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule) },
   { path: 'admin', loadChildren: () => import('./features/admin/admin.module').then(m => m.AdminModule), canActivate: [authGuard] },
   { path: 'main-screen', loadChildren: () => import('./features/main screen/mainscreen.module').then(m => m.mainscreenModule), canActivate: [authGuard] },

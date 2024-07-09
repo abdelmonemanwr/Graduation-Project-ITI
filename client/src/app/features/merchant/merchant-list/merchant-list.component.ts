@@ -57,7 +57,7 @@ export class MerchantListComponent implements OnInit {
   pageSize = 5;
   totalMerchants = 0;
   
-
+  isLoading = true;
   constructor(private merchantService: MerchantService,public dialog: MatDialog,private modalService: NgbModal ) {
     console.log('merchant intialized')
   }
@@ -68,27 +68,32 @@ export class MerchantListComponent implements OnInit {
   }
 
   loadMerchants(): void {
-    this.merchantService.getMerchants(this.page, this.pageSize).subscribe(response => {
+    this.merchantService.getMerchants(this.pageNumber, this.pageSize).subscribe(response => {
       this.merchants = response;
-      console.log(this.merchants)
-      this.totalMerchants = response.length;
-      console.log(this.totalMerchants)
+      this.isLoading = false
+      //console.log(this.merchants)
+      this.totalItems = 15;
     });
   }
-  onPageNext( ): void {
-    if(this.page >= Math.ceil(this.totalMerchants / this.pageSize)) return
-    this.page = this.page +1;
-    this.loadMerchants();
-  }
-  onPagePrevious(): void {
-    if(this.page <= 1) return
-    this.page = this.page - 1;
-    this.loadMerchants();
-  }
-  onPageReset(): void {
-    this.page = 1;
-    this.loadMerchants();
+  
+  // onPageNext( ): void {
+  //  // if(this.page >= Math.ceil(this.totalMerchants / this.pageSize)) return
+  //   this.page = this.page +1;
+  //   this.loadMerchants();
+  // }
+  // onPagePrevious(): void {
+  //   if(this.page <= 1) return
+  //   this.page = this.page - 1;
+  //   this.loadMerchants();
+  // }
+  // onPageReset(): void {
+  //   this.page = 1;
+  //   this.loadMerchants();
    
+  // }
+  onPageChange(page: number): void {
+    this.pageNumber = page;
+    this.loadMerchants();
   }
   openMerchantDetail(merchantId: string): void {
     this.merchantService.getMerchantById(merchantId).subscribe((merchant) => {

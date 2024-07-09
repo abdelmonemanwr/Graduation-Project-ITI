@@ -55,3 +55,14 @@ table{
   justify-content: center;  */
   font-size: 1.2rem; /* Adjust icon size as needed */
 }
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}

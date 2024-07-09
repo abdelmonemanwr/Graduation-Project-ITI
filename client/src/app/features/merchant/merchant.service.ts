@@ -20,11 +20,14 @@ export class MerchantService {
   }
 
   createMerchant(merchant: MerchantDTO): Observable<Merchant> {
-    return this.http.post<Merchant>(this.apiUrl, merchant);
+    let data= this.http.post<Merchant>(this.apiUrl, merchant);
+    console.log(data)
+    return data
   }
 
   updateMerchant(id: string, merchant: MerchantDTO): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/${id}`, merchant);
+    let data = this.http.put<void>(`${this.apiUrl}/${id}`, merchant)
+    return data;
   }
   
   // Since we are not deleting but using a flag, this method could be different based on your API
