@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShippingSystem.DTOs.Representatives;
 using ShippingSystem.Models;
@@ -20,6 +21,7 @@ namespace ShippingSystem.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<Branch>>> GetBranches()
         {
             var branches = await _context.Branches
@@ -35,6 +37,7 @@ namespace ShippingSystem.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<Branch>> GetBranch(int id)
         {
             var branch = await _context.Branches.FindAsync(id);
@@ -47,6 +50,7 @@ namespace ShippingSystem.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult<Branch>> PostBranch(BranchesDTO branchDto)
         {
             var branch = new Branch
@@ -62,6 +66,7 @@ namespace ShippingSystem.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> PutBranch(int id, BranchesDTO branchDto)
         {
             if (id != branchDto.Id)
@@ -99,6 +104,7 @@ namespace ShippingSystem.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteBranch(int id)
         {
             var branch = await _context.Branches.FindAsync(id);
@@ -106,9 +112,14 @@ namespace ShippingSystem.Controllers
             {
                 return NotFound();
             }
-            if(branch.Representatives.Count > 0)
+            var activeRepresentativesCount = branch.Representatives.Count(r => !r.IsDeleted);
+            if (activeRepresentativesCount > 0)
             {
-                return BadRequest("المناديب المسجلين بهذا الفرع: " + branch.Representatives.Count);
+                var response = new
+                {
+                    message = "المناديب المسجلين بهذا الفرع: " + activeRepresentativesCount
+                };
+                return BadRequest(response);
             }
             _context.Branches.Remove(branch);
             await _context.SaveChangesAsync();

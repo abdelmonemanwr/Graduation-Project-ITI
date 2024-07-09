@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShippingSystem.DTOs.Representatives;
@@ -25,6 +26,7 @@ namespace ShippingSystem.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<RepresentativeDtoGET>>> GetRepresentatives()
         {
             var representatives = await _context.Representatives.Where(r => r.IsDeleted == false)
@@ -59,6 +61,7 @@ namespace ShippingSystem.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<Representative>> GetRepresentative(string id)
         {
             var r = await _context.Representatives.FindAsync(id);
@@ -99,6 +102,7 @@ namespace ShippingSystem.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult<Representative>> PostRepresentative(RepresentativeDTO representativeDto)
         {
             var representative = new Representative
@@ -151,9 +155,8 @@ namespace ShippingSystem.Controllers
             }
         }
 
-
-
         [HttpPut("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> PutRepresentative(string id, RepresentativeDTO representativeDto)
         {
             if (id != representativeDto.id)
@@ -202,6 +205,7 @@ namespace ShippingSystem.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteRepresentative(string id)
         {
             var representative = await _context.Representatives.FindAsync(id);
@@ -216,13 +220,8 @@ namespace ShippingSystem.Controllers
             return NoContent();
         }
 
-        private bool RepresentativeExists(string id)
-        {
-            return _context.Representatives.Any(e => e.Id == id);
-        }
-
-
         [HttpGet("governorates")]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<RepresentativeGovernateDTO>>> GetGovernorates()
         {
             var governorates = await _context.Governates
@@ -237,6 +236,7 @@ namespace ShippingSystem.Controllers
             return Ok(governorates);
         }
         [HttpGet("branches")]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<RepresentativeGovernateDTO>>> GetBranches()
         {
             var branches = await _context.Branches

@@ -74,7 +74,13 @@ export class ShippingTypeTableComponent implements OnInit {
         this.fetchShippingTypes();
         this.closeModal();
       },
-      (error) => console.error('Error registering shippingType', error)
+      (error) => {
+        if (error.status === 403) {
+          alert('You do not have permission to create a shippingType.');
+        } else {
+          console.error('Error registering shippingtype', error);
+        }
+      }
     );
   }
 
@@ -85,7 +91,13 @@ export class ShippingTypeTableComponent implements OnInit {
         (response) => {
           this.fetchShippingTypes();
         },
-        (error) => alert('حدث خطأ اثناء الحذف\n ' + error.error)
+        (error) => {
+          if (error.status === 403) {
+            alert('You do not have permission to delete a shippingType.');
+          } else {
+            console.error('Error deleting shippingtype', error);
+          }
+        }
       );
     }
   }
@@ -104,15 +116,21 @@ export class ShippingTypeTableComponent implements OnInit {
     shippingType = shippingType.form.value;
     shippingType.id = this.selectedid;
     console.log('Updating shippingType:', shippingType);
-    this.shippingTypeService.updateShippingType(shippingType.id, shippingType).subscribe(
-      () => {
-        this.modalOpen = false;
-        this.fetchShippingTypes();
-      },
-      (error) => {
-        console.error('Error updating shippingType:', error);
-      }
-    );
+    this.shippingTypeService
+      .updateShippingType(shippingType.id, shippingType)
+      .subscribe(
+        () => {
+          this.modalOpen = false;
+          this.fetchShippingTypes();
+        },
+        (error) => {
+          if (error.status === 403) {
+            alert('You do not have permission to update a shippingType.');
+          } else {
+            console.error('Error updating shippingType:', error);
+          }
+        }
+      );
   }
 
   // search

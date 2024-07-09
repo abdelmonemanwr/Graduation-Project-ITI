@@ -122,11 +122,17 @@ export class RepresentativeTableComponent implements OnInit {
     //console.log('Form Data :', representative);
     this.representativeService.registerRepresentative(representative).subscribe(
       (response) => {
-        console.log('Representative registered successfully', response);
+        //console.log('Representative registered successfully', response);
         this.fetchRepresentatives(); // Refresh the list
         this.closeModal();
       },
-      (error) => console.error('Error registering representative', error)
+      (error) => {
+        if (error.status === 403) {
+          alert('You do not have permission to create a Representative.');
+        } else {
+          console.error('Error creating Representative:', error);
+        }
+      }
     );
   }
 
@@ -140,7 +146,13 @@ export class RepresentativeTableComponent implements OnInit {
             //console.log('Representative deleted successfully', response);
             this.fetchRepresentatives(); // Refresh the list after deletion
           },
-          (error) => console.error('Error deleting representative', error)
+          (error) => {
+            if (error.status === 403) {
+              alert('You do not have permission to delete a Representative.');
+            } else {
+              console.error('Error deleting Representative:', error);
+            }
+          }
         );
     }
   }
@@ -181,7 +193,11 @@ export class RepresentativeTableComponent implements OnInit {
           this.fetchRepresentatives(); // Refresh the list
         },
         (error) => {
-          console.error('Error updating representative:', error);
+          if (error.status === 403) {
+            alert('You do not have permission to update a Representative.');
+          } else {
+            console.error('Error updating Representative:', error);
+          }
         }
       );
   }

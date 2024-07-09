@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
 export class ShippingTypeService {
-  private apiURL = 'https://localhost:44389/api/ShippingType';
+  private apiURL = `${environment.apiUrl}ShippingType`;
   constructor(private http: HttpClient) {}
 
   getShippingTypes(): Observable<any[]> {

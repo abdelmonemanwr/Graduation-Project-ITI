@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShippingSystem.DTOs.Representatives;
 using ShippingSystem.Models;
@@ -20,6 +21,7 @@ namespace ShippingSystem.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<ShippingType>>> GetShippingTypes()
         {
             var types = await _context.ShippingTypes.ToListAsync();
@@ -27,6 +29,7 @@ namespace ShippingSystem.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<ShippingType>> GetShippingType(int id)
         {
             var type = await _context.ShippingTypes.FindAsync(id);
@@ -39,6 +42,7 @@ namespace ShippingSystem.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult<ShippingType>> PostShippingType(ShippingType typeDto)
         {
             var type = new ShippingType
@@ -54,6 +58,7 @@ namespace ShippingSystem.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> PutShippingType(int id, ShippingType typeDto)
         {
             if (id != typeDto.Id)
@@ -91,6 +96,7 @@ namespace ShippingSystem.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteShippingType(int id)
         {
             var type = await _context.ShippingTypes.FindAsync(id);

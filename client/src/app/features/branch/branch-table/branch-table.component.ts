@@ -75,7 +75,13 @@ export class BranchTableComponent implements OnInit {
         this.fetchBranches();
         this.closeModal();
       },
-      (error) => console.error('Error registering branch', error)
+      (error) => {
+        if (error.status === 403) {
+          alert('You do not have permission to create a branch.');
+        } else {
+          console.error('Error registering branch', error);
+        }
+      }
     );
   }
 
@@ -87,7 +93,13 @@ export class BranchTableComponent implements OnInit {
           //console.log('Representative deleted successfully', response);
           this.fetchBranches();
         },
-        (error) => alert('حدث خطأ اثناء الحذف\n ' + error.error)
+        (error) => {
+          if (error.status === 403) {
+            alert('You do not have permission to delete a branch.');
+          } else {
+            alert('حدث خطأ اثناء الحذف\n ' + error.error.message);
+          }
+        }
       );
     }
   }
@@ -127,7 +139,11 @@ export class BranchTableComponent implements OnInit {
         this.fetchBranches();
       },
       (error) => {
-        console.error('Error updating branch:', error);
+        if (error.status === 403) {
+          alert('You do not have permission to edit a branch.');
+        } else {
+          console.error('Error updating branch:', error);
+        }
       }
     );
   }
