@@ -15,4 +15,9 @@ export class PrivilegeService {
   getPrivileges(): Observable<PrivilegeDTO[]> {
     return this.http.get<PrivilegeDTO[]>(this.apiUrl);
   }
+
+  getPrivilegeById(id: number): Observable<PrivilegeDTO> {
+    return this.http.get<PrivilegeDTO>(`${this.apiUrl}/GetPrivilegeById/${id}`);
+  }
+
 }

@@ -1,3 +1,4 @@
+import { GroupPrivilegeDTO } from './../admin/interfaces/group-privilege-dto';
 import { LoginDTO } from './interfaces/login-dto';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
@@ -16,7 +17,10 @@ import { jwtDecode } from 'jwt-decode';
 export class AuthService {
   private tokenKey = 'token';
   private roleKey = 'role';
+  private privilegesKey = 'privileges';
+
   private apiURL = environment.apiUrl;
+
   private httpOptions = {
     headers: new HttpHeaders({
       'Accept': 'application/json',
@@ -28,15 +32,26 @@ export class AuthService {
 
   login(loginCredentials: LoginDTO): Observable<ResponseDTO> {
     return this.http.post<ResponseDTO>(`${this.apiURL}Account/Login`, loginCredentials, this.httpOptions).pipe(map(response => {
+      console.log("res ",JSON.stringify(response));
       localStorage.setItem('token', response.token);
       localStorage.setItem('role', response.role);
+      this.GetUserPrivilegesByUserId();
       return response;
     }));
   }
+  
+  private GetUserPrivilegesByUserId(){
+    this.http.get<GroupPrivilegeDTO>(`${this.apiURL}Account/GetUserPrivilegesByUserId`).subscribe({
+      next: (data) => {
+        localStorage.setItem(this.privilegesKey, JSON.stringify(data));
+      }
+    })
+  }
 
   logout(): void {
-    localStorage.removeItem('token');
-    localStorage.removeItem('role');
+    localStorage.removeItem(this.tokenKey);
+    localStorage.removeItem(this.roleKey);
+    localStorage.removeItem(this.privilegesKey);
     this.router.navigate(['/login']);
   }
 
@@ -48,11 +63,9 @@ export class AuthService {
     return this.http.post<ResponseDTO>(`${this.apiURL}/Account/resetPassword`, data);
   }
 
-  getUserDetails():Observable<UserDetailsDTO>{
-    const token = this.getToken();
+  getUserDetails(): Observable<UserDetailsDTO> {
     const url = `${this.apiURL}Account/GetUserDetails`;
-    // console.log(`get user details url: ${url}`);
-    return this.http.get<UserDetailsDTO>(url, { headers: { Authorization: `Bearer ${token}` } });
+    return this.http.get<UserDetailsDTO>(url);
   }
 
   // getUserDetails(): Observable<UserDetailsDTO> {
@@ -66,6 +79,11 @@ export class AuthService {
 
   getRole(): string | null {
     return localStorage.getItem(this.roleKey);
+  }
+
+  getPrivileges(): GroupPrivilegeDTO[] | null {
+    const privileges = localStorage.getItem(this.privilegesKey);
+    return privileges ? JSON.parse(privileges) : null;
   }
 
   isLoggedIn(): boolean {

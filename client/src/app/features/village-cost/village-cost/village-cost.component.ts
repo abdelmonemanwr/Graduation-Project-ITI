@@ -1,7 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { VillageCostService } from '../../../services/village-cost.service';
+import { VillageCostService } from '../village-cost.service';
 
 @Component({
   selector: 'app-village-cost',

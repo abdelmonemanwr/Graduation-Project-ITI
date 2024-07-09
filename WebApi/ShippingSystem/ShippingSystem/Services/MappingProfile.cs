@@ -19,6 +19,8 @@ namespace ShippingSystem.Services
         {
             CreateMap<ApplicationUser, UserDetailsDTO>().ReverseMap();
             
+            //CreateMap<ApplicationUser, RegisterDTO>().ReverseMap();
+
             CreateMap<ApplicationUser, RegisterDTO>()
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.FullName))
@@ -70,7 +72,14 @@ namespace ShippingSystem.Services
 
 
             CreateMap<OrderDto, Order>();
-            
+
+            CreateMap<Order, OrderDto>().ReverseMap();
+            //CreateMap<Employee, EmployeeDTO>()
+            //.ForMember(dest => dest.Roles, opt => opt.MapFrom<EmployeeRolesResolver>())
+            // .ForMember(dest => dest.BranchId, opt => opt.MapFrom(src => src.Branch_Id))
+            // .ForMember(dest => dest.BranchName, opt => opt.MapFrom(src => src.Branch.Name))
+            // .ForMember(dest => dest.Password, opt => opt.MapFrom(src => src.PasswordHash))
+            // .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.PhoneNumber));
 
             CreateMap<ProductOrderDto, ProductOrder>().ReverseMap();
 
@@ -80,6 +89,7 @@ namespace ShippingSystem.Services
              .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => src.Password))
              .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName))
              .ForMember(dest => dest.Id, opt => opt.Ignore());
+
 
             CreateMap<Employee, EmployeeDTO>()
              .ForMember(dest => dest.Roles, opt => opt.MapFrom<EmployeeRolesResolver>())

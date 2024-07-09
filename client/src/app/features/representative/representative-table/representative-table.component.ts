@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RepresentativeService } from '../../../services/representative.service';
+import { RepresentativeService } from '../representative.service';
 import { FormControl } from '@angular/forms';
 
 @Component({

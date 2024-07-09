@@ -6,6 +6,7 @@ import { RepresentativeTableComponent } from './representative-table/representat
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { RepresentativeTableComponent } from './representative-table/representative-table.component';
 
 @NgModule({
   declarations: [RepresentativeTableComponent],
@@ -17,5 +18,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatFormFieldModule,
     MatSelectModule,
   ],
+  exports: [],
 })
 export class RepresentativeModule {}

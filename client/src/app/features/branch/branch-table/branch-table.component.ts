@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { BranchService } from '../../../services/branch.service';
+import { BranchService } from '../branch.service';
 
 @Component({
   selector: 'app-branch-table',

@@ -61,6 +61,8 @@ namespace ShippingSystem.Models
 
         public PaymentTypeEnum paymentType {  get; set; }
 
+
+
         [ForeignKey("ShippingType")]
         public int? Shipping_Id { get; set; }
 

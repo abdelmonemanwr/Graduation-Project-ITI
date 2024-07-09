@@ -7,9 +7,8 @@ import { GroupDTO } from '../interfaces/group-dto';
 import { PrivilegeDTO } from '../interfaces/privilege-dto';
 import { GroupPrivilegeDTO } from '../interfaces/group-privilege-dto';
 import { Router, ActivatedRoute } from '@angular/router';
-import { catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
-import { Group } from '../interfaces/group';
+import { catchError, map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-add-privilege',
@@ -24,6 +23,7 @@ export class AddPrivilegeComponent implements OnInit {
   addMode: boolean = true;
   groupNameInEditMode: string | null = null;
   userPrivileges: GroupPrivilegeDTO[] = [];
+
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
@@ -33,7 +33,11 @@ export class AddPrivilegeComponent implements OnInit {
     private groupService: GroupService
   ) {
     this.groupForm = this.fb.group({
-      groupName: ['', [Validators.required], [this.groupNameValidator.bind(this)]],
+      groupName: ['', {
+        validators: [],
+        asyncValidators: this.validateGroupName.bind(this),
+        updateOn: 'change'
+      }],
       privileges: this.fb.array([])
     });
   }
@@ -49,60 +53,65 @@ export class AddPrivilegeComponent implements OnInit {
         this.addMode = false;
         this.groupService.getGroupDTOById(this.groupId).subscribe({
           next: (groupDTO: GroupDTO) => {
-            // bind name to the group name control
+            const groupNameControl = this.groupForm.get('groupName');
             groupNameControl?.setValue(groupDTO.name);
             // store the data in local variables
             this.groupNameInEditMode = groupDTO.name;
             this.userPrivileges = groupDTO.groupPrivileges;
+            this.privilegeService.getPrivileges().subscribe({
+              next: (data: PrivilegeDTO[]) => {
+                this.privileges = data;
+                this.setPrivileges(data, this.userPrivileges);
+              },
+              error: (error) => {
+                console.error('Failed to fetch privileges from server in edit mode', error.message);
+              }
+            });
           },
           error: (error) => {
-            console.error('Failed to fetch groupDTO data fro m server', error.message);
+            console.error('Failed to fetch groupDTO data from server in edit mode', error.message);
           }
         });
       }
-    });
-
-    this.privilegeService.getPrivileges().subscribe({
-      next: (data: PrivilegeDTO[]) => {
-        this.privileges = data;
-        console.log(`user Privileges: ${JSON.stringify(this.userPrivileges)}`);
-        this.setPrivileges(data, this.userPrivileges);
-      },
-      error: (error) => {
-        console.error('Failed to fetch privileges from server', error);
+      else {
+        this.privilegeService.getPrivileges().subscribe({
+          next: (data: PrivilegeDTO[]) => {
+            this.privileges = data;
+            this.setPrivileges(data, []);
+          },
+          error: (error) => {
+            console.error('Failed to fetch privileges from server in add mode', error.message);
+          }
+        });
       }
     });
 
     const groupNameControl = this.groupForm.get('groupName');
     groupNameControl?.valueChanges.subscribe({
       next: (groupName: string) => {
-        if (groupName) {
-          if(this.addMode){
-            this.validateGroupName(groupName);
-          } else {
-            if(groupName !== this.groupNameInEditMode ){
-              this.validateGroupName(groupName);
-            }
-          }
+        if (groupName && !this.addMode && groupName === this.groupNameInEditMode){
+          groupNameControl.setErrors(null);
+        }
+      }
         }
       }
     });
 
   }
 
-  validateGroupName(groupName: string) {
-    this.groupService.getGroupByName(groupName).subscribe({
-      next: (exists: boolean) => {
-        if ((exists && this.addMode) || (!this.addMode && groupName !== this.groupNameInEditMode) ) {
-          const snackBarRef = this.snackBar.open('هذه المجموعة موجودة بالفعل', 'إغلاق', {
-            duration: 3000,
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-            direction: 'rtl'
-          });
+  private setPrivileges(privileges: PrivilegeDTO[], userPrivileges: GroupPrivilegeDTO[]) {
+    const privilegeFGs: FormGroup[] = privileges.map(privilege => {
+      const curUserPrivilege = userPrivileges.find(gp => gp.privelege_Id === privilege.id);
+      return this.fb.group({
+        Privelege_Id: [privilege.id],
+        Add: [curUserPrivilege ? curUserPrivilege.add : false],
+        Update: [curUserPrivilege ? curUserPrivilege.update : false],
+        View: [curUserPrivilege ? curUserPrivilege.view : false],
+        Delete: [curUserPrivilege ? curUserPrivilege.delete : false]
+      });
           snackBarRef.onAction().subscribe(() => {
             snackBarRef.dismiss();
-          });
+    });
           const groupNameControl = this.groupForm.get('groupName');
           groupNameControl?.setErrors({ groupExists: true });
         }
@@ -128,7 +137,7 @@ export class AddPrivilegeComponent implements OnInit {
   }
 
   getSelectedPrivileges(): GroupPrivilegeDTO[] {
-    const chosenPrivileges = this.privilegesFormArray.controls
+    return this.privilegesFormArray.controls
       .filter(control => control.value.Add || control.value.Update || control.value.View || control.value.Delete)
       .map(control => control.value);
     //console.log(`selected privileges: ${JSON.stringify(chosenPrivileges)}`);
@@ -137,15 +146,7 @@ export class AddPrivilegeComponent implements OnInit {
 
   onSubmit() {
     if (this.groupForm.invalid) {
-      const snackBarRef = this.snackBar.open('من فضلك قم بإدخال اسم المجموعة', 'إغلاق', {
-        duration: 3000,
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-        direction: 'rtl'
-      });
-      snackBarRef.onAction().subscribe(() => {
-        snackBarRef.dismiss();
-      });
+      this.handleFormErrors();
       return;
     }
 
@@ -158,85 +159,64 @@ export class AddPrivilegeComponent implements OnInit {
     // Update existing group
     if (this.groupId) {
       this.groupService.updateGroup(this.groupId, newGroup).subscribe({
-        next: (response) => {
-          //console.log(`Updated group data: ${JSON.stringify(response)}`);
-          this.router.navigate(['/admin/myGroups']);
-          const snackBarRef = this.snackBar.open('تم تحديث المجموعة بنجاح!', 'إغلاق', {
-            duration: 3000,
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-            direction: 'rtl'
-          });
-          snackBarRef.onAction().subscribe(() => {
-            snackBarRef.dismiss();
-          });
-        },
-        error: (error) => {
-          console.error(`Failed to update group: ${error}`);
-          const snackBarRef = this.snackBar.open('حدث خطأ أثناء تحديث المجموعة', 'إغلاق', {
-            duration: 3000,
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-            direction: 'rtl'
-          });
-          snackBarRef.onAction().subscribe(() => {
-            snackBarRef.dismiss();
-          });
-        }
+        next: () => this.handleSuccess('تم تحديث المجموعة بنجاح!'),
+        error: (error) => this.handleError('فشل تحديث المجموعة!', error)
       });
     } else {
-      // Create new group
       this.groupService.createGroup(newGroup).subscribe({
-        next: (response) => {
-          //console.log(`New group data: ${JSON.stringify(response)}`);
-          this.router.navigate(['/admin/myGroups']);
-          const snackBarRef = this.snackBar.open('تم إنشاء المجموعة بنجاح!', 'إغلاق', {
-            duration: 3000,
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-            direction: 'rtl'
-          });
-          snackBarRef.onAction().subscribe(() => {
-            snackBarRef.dismiss();
-          });
-        },
-        error: (error) => {
-          console.error(`Failed to create group: ${error}`);
-          const snackBarRef = this.snackBar.open('حدث خطأ أثناء إنشاء المجموعة', 'إغلاق', {
-            duration: 3000,
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-            direction: 'rtl'
-          });
-          snackBarRef.onAction().subscribe(() => {
-            snackBarRef.dismiss();
-          });
-        }
+        next: () => this.handleSuccess('تم إنشاء المجموعة بنجاح!'),
+        error: (error) => this.handleError('فشل إنشاء المجموعة!', error)
       });
     }
   }
 
-  groupNameValidator(control: AbstractControl) {
-    return new Promise((resolve) => {
-      if (!control.value) {
-        resolve(null);
-      } else {
-        this.groupService.getGroupByName(control.value).pipe(
-          catchError(() => of(false))
-        ).subscribe({
-          next: (exists: boolean) => {
-            if (exists) {
-              resolve({ groupExists: true });
-            } else {
-              resolve(null);
-            }
-          },
-          error: (error) => {
-            console.error('Error checking group name:', error);
-            resolve(null);
-          }
-        });
-      }
+  private handleFormErrors() {
+    const snackBarRef = this.snackBar.open('من فضلك قم بإدخال اسم المجموعة', 'إغلاق', {
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      direction: 'rtl'
+    });
+    snackBarRef.onAction().subscribe(() => snackBarRef.dismiss());
+  }
+
+  private handleSuccess(message: string) {
+    this.router.navigate(['/admin/myGroups']);
+    const snackBarRef = this.snackBar.open(message, 'إغلاق', {
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      direction: 'rtl'
+    });
+    snackBarRef.onAction().subscribe(() => snackBarRef.dismiss());
+  }
+
+  private handleError(message: string, error: any) {
+    console.error(message, error);
+    const snackBarRef = this.snackBar.open(`حدث خطأ أثناء ${message}`, 'إغلاق', {
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      direction: 'rtl'
+    });
+    snackBarRef.onAction().subscribe(() => snackBarRef.dismiss());
+  }
+
+  get privilegesFormArray() {
+    return this.groupForm.get('privileges') as FormArray;
+  }
+
+  validateGroupName(control: AbstractControl): Observable<{ [key: string]: any } | null> {
+    const groupName = control.value;
+
+    if (groupName === this.groupNameInEditMode) {
+      return of(null);
+    } else {
+      return this.groupService.getGroupByName(groupName).pipe(
+        map(exists => exists ? { groupExists: true } : null),
+        catchError(() => of(null))
+      );
+    }
     });
   }
 }

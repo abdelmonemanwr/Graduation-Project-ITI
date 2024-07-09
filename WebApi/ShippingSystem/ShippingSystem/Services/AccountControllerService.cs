@@ -7,8 +7,10 @@ using Microsoft.IdentityModel.Tokens;
 using RestSharp;
 using Server.DTOs.Passwords;
 using ShippingSystem.DTOs.Authentication;
+using ShippingSystem.DTOs.Groups;
 using ShippingSystem.DTOs.Passwords;
 using ShippingSystem.Models;
+using ShippingSystem.UnitOfWorks;
 using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
@@ -22,12 +24,14 @@ namespace ShippingSystem.Services
         private readonly IMapper mapper;
         private IConfiguration configuration;
         private UserManager<ApplicationUser> userManager;
+        private readonly IUnitOfWork unitOfWork;
 
-        public AccountControllerService(IMapper mapper, UserManager<ApplicationUser> userManager, IConfiguration configuration)
+        public AccountControllerService(IMapper mapper, UserManager<ApplicationUser> userManager, IConfiguration configuration, IUnitOfWork unitOfWork)
         {
             this.mapper = mapper;
             this.userManager = userManager;
             this.configuration = configuration;
+            this.unitOfWork = unitOfWork;
         }
 
         private Task<string> GetUserRole(ApplicationUser applicationUser) 
@@ -269,6 +273,29 @@ namespace ShippingSystem.Services
                 Role = role,
             };
 
+        }
+
+
+        public async Task<string> GetRoleIdAsync(ClaimsPrincipal userClaims)
+        {
+            //return await unitOfWork.EmployeeRepository.GetRoleIdByUserId(ClaimTypes.NameIdentifier);
+            var userId = userClaims.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId))
+            {
+                throw new Exception("User ID is not found in the claims.");
+            }
+            return await unitOfWork.EmployeeRepository.GetRoleIdByUserId(userId);
+        }
+
+        public async Task<List<GroupPrivilegeDTO?>> GetPrivilegesByGroupNameAsync(string roleId)
+        {
+            var group = await unitOfWork.GroupRepository.GetById(roleId);
+            if (group == null)
+            {
+                return new List<GroupPrivilegeDTO?>();
+            }
+            var groupPrivileges = await unitOfWork.GroupPrivilegeRepository.GetGroupPrivilegesByGroupId(group.Id);
+            return mapper.Map<List<GroupPrivilegeDTO?>>(groupPrivileges);
         }
     }
 }

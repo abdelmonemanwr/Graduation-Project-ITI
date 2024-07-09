@@ -24,5 +24,5 @@
 
         RejectedFromEmployee,
 
-    } 
+    }
 }

@@ -129,7 +129,7 @@ namespace ShippingSystem.Controllers
         /// <param name="id"></param>
         /// <param name="groupDTO"></param>
         /// <returns></returns>
-        [HttpPut("UpdateGroup")]
+        [HttpPut("UpdateGroup/{id}")]
         public async Task<IActionResult> UpdateGroup(string id, GroupDTO groupDTO)
         {
             try

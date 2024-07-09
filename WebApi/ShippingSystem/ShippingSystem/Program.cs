@@ -41,13 +41,14 @@ namespace ShippingSystem
             })
                 .AddEntityFrameworkStores<ShippingContext>()
                 .AddDefaultTokenProviders();
-            //.AddUserValidator<CustomUserValidator<ApplicationUser>>(); // Add custom user validator
+                //.AddUserValidator<CustomUserValidator<ApplicationUser>>(); // Add custom user validator
 
             builder.Services.AddControllers()
             .AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
             });
+
 
             builder.Services.Configure<IdentityOptions>(options => {
                 options.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultProvider;
@@ -133,6 +134,8 @@ namespace ShippingSystem
                                     
                 });
             });
+
+            builder.Services.AddControllers();
 
             //> Add JWT Authentication
             #region jwt use default schema

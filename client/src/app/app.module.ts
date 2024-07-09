@@ -6,15 +6,16 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { environment } from '../environments/environment';
 import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from './shared/shared.module';
 import { AuthModule } from './features/auth/auth.module';
-import { SharedModule } from './shared/modules/shared/shared.module';
+import { AdminModule } from './features/admin/admin.module';
 
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule, AppRoutingModule, HttpClientModule,
-    FormsModule, ReactiveFormsModule, SharedModule,
+    BrowserModule, AppRoutingModule, HttpClientModule, AdminModule,
+    FormsModule, ReactiveFormsModule, AuthModule, SharedModule
   ],
   providers: [
   

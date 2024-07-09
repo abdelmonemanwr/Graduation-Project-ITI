@@ -1,5 +1,6 @@
 ﻿using Server.DTOs.Passwords;
 using ShippingSystem.DTOs.Authentication;
+using ShippingSystem.DTOs.Groups;
 using ShippingSystem.DTOs.Passwords;
 using System.Security.Claims;
 
@@ -14,5 +15,8 @@ namespace ShippingSystem.Services
         public Task<AuthResponseDTO> ResetPassword(ResetPasswordDTO resetPasswordDTO);
         public Task<AuthResponseDTO> ForgetPassword(ForgetPasswordDTO forgetPasswordDTO);
         public Task<AuthResponseDTO> Register(RegisterDTO registerDTO);
+
+        public Task<List<GroupPrivilegeDTO?>> GetPrivilegesByGroupNameAsync(string groupName);
+        public Task<string> GetRoleIdAsync(ClaimsPrincipal userClaims);
     }
 }

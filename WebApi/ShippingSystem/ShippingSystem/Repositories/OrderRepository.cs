@@ -75,7 +75,7 @@ namespace ShippingSystem.Repositories
                 if (merchant.SpecialPickupCost != null || merchant.SpecialPickupCost != 0)
                 {
                     order.TotalCost += merchant.SpecialPickupCost ?? 0;
-                    
+
                     return order;
                 }
                 else

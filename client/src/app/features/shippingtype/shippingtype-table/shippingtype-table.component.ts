@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ShippingTypeService } from '../../../services/shippingtype.service';
+import { ShippingTypeService } from '../shippingtype.service';
 
 @Component({
   selector: 'app-branch-table',

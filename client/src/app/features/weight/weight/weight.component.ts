@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { WeightService } from '../../../services/weight.service';
+import { WeightService } from '../weight.service';
 
 @Component({
   selector: 'app-weight',

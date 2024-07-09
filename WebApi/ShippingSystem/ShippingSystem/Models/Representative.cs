@@ -6,6 +6,7 @@ namespace ShippingSystem.Models
 {
     public class Representative : ApplicationUser
     {
+        //public string? FullName { get; set; }
 
         public string? Address { get; set; }
 

@@ -381,6 +381,12 @@ namespace ShippingSystem.Migrations
                     b.Property<int?>("OrderStatus")
                         .HasColumnType("int");
 
+                    b.Property<int?>("OrderType_Id")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Payment_Id")
+                        .HasColumnType("int");
+
                     b.Property<string>("Representative_Id")
                         .HasColumnType("nvarchar(450)");
 
@@ -417,6 +423,10 @@ namespace ShippingSystem.Migrations
                     b.HasIndex("Governate_Id");
 
                     b.HasIndex("Merchant_Id");
+
+                    b.HasIndex("OrderType_Id");
+
+                    b.HasIndex("Payment_Id");
 
                     b.HasIndex("Representative_Id");
 
@@ -773,6 +783,14 @@ namespace ShippingSystem.Migrations
                         .WithMany()
                         .HasForeignKey("Merchant_Id");
 
+                    b.HasOne("ShippingSystem.Models.OrderType", "OrderType")
+                        .WithMany()
+                        .HasForeignKey("OrderType_Id");
+
+                    b.HasOne("ShippingSystem.Models.PaymentType", "PaymentType")
+                        .WithMany()
+                        .HasForeignKey("Payment_Id");
+
                     b.HasOne("ShippingSystem.Models.Representative", "Representative")
                         .WithMany()
                         .HasForeignKey("Representative_Id");
@@ -788,6 +806,10 @@ namespace ShippingSystem.Migrations
                     b.Navigation("Governate");
 
                     b.Navigation("Merchant");
+
+                    b.Navigation("OrderType");
+
+                    b.Navigation("PaymentType");
 
                     b.Navigation("Representative");
 

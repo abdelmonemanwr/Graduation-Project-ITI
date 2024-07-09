@@ -114,6 +114,7 @@ namespace ShippingSystem.Controllers
             return NoContent();
         }
 
+        // GET: api/Order/filterByStatus?status=Pending
         [HttpGet("filterByStatus")]
         public async Task<ActionResult<IEnumerable<OrderDto>>> FilterOrderByStatus(OrderStatus status)
         {
@@ -121,6 +122,7 @@ namespace ShippingSystem.Controllers
             return Ok(orders);
         }
 
+        // GET: api/Order/filterByStatusAndDate?status=Pending&startDate=2022-01-01&endDate=2022-12-31
         [HttpGet("filterByStatusAndDate")]
         public async Task<ActionResult<IEnumerable<OrderDto>>> FilterOrderByStatusAndDate(OrderStatus status, DateTime startDate, DateTime endDate)
         {

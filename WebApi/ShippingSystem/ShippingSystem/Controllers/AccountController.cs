@@ -219,5 +219,20 @@ namespace ShippingSystem.Controllers
             }
 
         }
+
+        [HttpGet("GetUserPrivilegesByUserId")]
+        public async Task<ActionResult> GetUserPrivilegesByUserId()
+        {
+            try
+            {
+                var roleId = await accountControllerService.GetRoleIdAsync(User);
+                var groupPrivielgesDTO = await accountControllerService.GetPrivilegesByGroupNameAsync(roleId);
+                return Ok(groupPrivielgesDTO);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
     }
 }

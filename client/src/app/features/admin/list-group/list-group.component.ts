@@ -19,7 +19,7 @@ export class ListGroupComponent implements OnInit {
   totalPages: number = 0;
   totalPagesArray: number[] = [];
 
-  constructor(private groupService: GroupService, private router: Router, private snackBar: MatSnackBar/*, private authService: AuthService*/) { }
+  constructor(private groupService: GroupService, private router: Router, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.loadGroups();

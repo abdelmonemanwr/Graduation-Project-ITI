@@ -64,7 +64,7 @@ namespace ShippingSystem.Services
                 await unit.OrderRepository.Add(result);
                 await unit.OrderRepository.Save();
                 return true;
-            }
+        }
             return false;
         }
 
@@ -76,8 +76,10 @@ namespace ShippingSystem.Services
             order  = await unit.OrderRepository.CalculateTotalCost(order);
             order.OrderDate = DateTime.Now;
             if (order != null)
-            {
-                await unit.OrderRepository.Update(order);
+        {
+            var order = mapper.Map<Order>(OrderDto);
+
+            await unit.OrderRepository.Update(order);
                 await unit.OrderRepository.Save();
                 return true;
             }

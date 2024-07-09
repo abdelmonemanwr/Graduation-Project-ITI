@@ -50,5 +50,10 @@ namespace ShippingSystem.Repositories
         {
             return await db.Employees.FirstAsync(e => e.FullName == name);
         }
+
+        public async Task<string?> GetRoleIdByUserId(string userId)
+        {
+            return await db.UserRoles.Where(db => db.UserId == userId).Select(db => db.RoleId).FirstOrDefaultAsync();
+        }
     }
 }

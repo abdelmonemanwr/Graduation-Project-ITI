@@ -18,7 +18,7 @@ namespace ShippingSystem.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<PrivilegeDTO>> GetAll()
+        public async Task<ActionResult> GetAll()
         {
             try
             {
@@ -30,5 +30,17 @@ namespace ShippingSystem.Controllers
             }
         }
 
+        [HttpGet("GetPrivilegeById/{id}")]
+        public async Task<ActionResult<PrivilegeDTO>> GetPrivilegeById(int id)
+        {
+            try
+            {
+                return Ok(await privilegeControllerService.GetPrivilegeNameById(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

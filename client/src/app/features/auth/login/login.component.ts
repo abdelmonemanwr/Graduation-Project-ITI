@@ -68,9 +68,10 @@ export class LoginComponent implements OnInit {
           });
           console.log("Login done successfully as " + response.role + ":)");
           console.log(`login credentials ${JSON.stringify(loginCredentials)}`)
+          console.log(`login credentials ${JSON.stringify(response)}`)
           localStorage.setItem('token', response.token);
           localStorage.setItem('role', response.role);
-          // this.redirectUser(response.role);
+          this.redirectUser(response.role);
         },
         error: (error) => {
           console.error('Login failed:', error);
