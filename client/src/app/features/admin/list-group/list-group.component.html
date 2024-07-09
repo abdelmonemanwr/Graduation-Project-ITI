@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="d-flex justify-content-between mb-4">
+    <button class="btn btn-primary" style="background-color: #15467e;
+    font-weight: bold; font-family: serif;" (click)="addGroup()"> مجموعة جديدة</button>
+    <div class="search-container">
+      <div class="d-flex align-items-center">
+        <span class="material-icons cursor-pointer"
+          [ngStyle]="{ 'color': '#15467e', 'cursor': 'pointer', 'margin-right': '20px' }"
+          (click)="searchGroups()">search</span>
+        <div class="search-field">
+          <input type="text" class="form-control" [(ngModel)]="searchTerm"
+            style="direction: rtl; font-family: serif; color: #15467e; font-weight: bold; text-align: right;"
+            placeholder="بحث بالاسم" (keydown.enter)="searchGroups()">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th style="color: #15467e;" class="fs-5 text-center">الإعدادات</th>
+          <th style="color: #15467e;" class="fs-5 text-center">تاريخ الإضافة</th>
+          <th style="color: #15467e;" class="fs-5 text-center">الاسم</th>
+          <th style="color: #15467e;" class="fs-5 text-center">#</th>
+        </tr>
+      </thead>
+      <tbody class="text-center">
+        <tr *ngFor="let group of groups; let i = index">
+          <td class="text-center d-flex justify-content-center gap-3">
+            <i (click)="deleteGroup(group.id)" class="text-center bi bi-trash fs-5 text-danger"
+              [ngStyle]="{cursor: 'pointer'}"></i>
+            <i (click)="editGroup(group)" class="text-center bi bi-pencil-square fs-5 text-warning"
+              [ngStyle]="{cursor: 'pointer'}"></i>
+          </td>
+          <td class="text-center">{{ group.dateAdded | date:'medium' }}</td>
+          <td>{{ group.name }}</td>
+          <td class="text-center">{{ i + 1 }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pagination-container">
+    <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-center">
+        <li class="page-item" [class.disabled]="currentPage === 1">
+          <button class="page-link" (click)="onPageChange({ pageIndex: currentPage - 2, pageSize })"
+            [disabled]="currentPage === 1">السابق</button>
+        </li>
+        <li class="page-item" *ngFor="let page of totalPagesArray" [class.active]="currentPage === page">
+          <button class="page-link" (click)="onPageChange({ pageIndex: page - 1, pageSize })">{{ page }}</button>
+        </li>
+        <li class="page-item" [class.disabled]="currentPage === totalPages">
+          <button class="page-link" (click)="onPageChange({ pageIndex: currentPage, pageSize })"
+            [disabled]="currentPage === totalPages">التالي</button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

@@ -1,0 +1,273 @@
+<div class="container py-5 mx-auto">
+  <div class="row">
+    <div class="py-3">
+      <button class="btn btn-secondary" (click)="openModal()">
+        اضافة مندوب
+      </button>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <form
+        class="d-flex justify-content-between form-inline my-2 my-lg-0"
+        (ngSubmit)="onSearch()"
+      >
+        <input
+          class="form-control mr-sm-2 me-4"
+          type="search"
+          placeholder="بحث عن مندوب"
+          aria-label="Search"
+          [formControl]="searchControl"
+        />
+        <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">
+          بحث
+        </button>
+      </form>
+    </div>
+
+    <table class="table my-5">
+      <thead>
+        <tr class="table-header">
+          <th scope="col" class="text-center">الاعدادات</th>
+          <th scope="col" class="text-center">الحالة</th>
+          <th scope="col" class="text-center">نسبة الشركة من الطلب</th>
+          <th scope="col" class="text-center">نوع الخصم</th>
+          <th scope="col" class="text-center">المحافظات</th>
+          <th scope="col" class="text-center">الفرع</th>
+          <th scope="col" class="text-center">رقم الهاتف</th>
+          <th scope="col" class="text-center">البريد</th>
+          <th scope="col" class="text-center">الاسم</th>
+          <th scope="col" class="text-center">#</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let representative of paginatedRepresentatives; let i = index"
+        >
+          <td scope="row" class="text-center">
+            <div class="d-flex justify-content-center">
+              <i
+                class="bi bi-trash3-fill text-danger me-2 fs-4 hand-pointer"
+                (click)="deleteRepresentative(representative)"
+              >
+              </i>
+              <i
+                class="mx-1 fs-5 text-info bi bi-pencil-square fs-4 hand-pointer"
+                (click)="editRepresentative(representative)"
+              >
+              </i>
+            </div>
+          </td>
+          <td class="text-center">
+            <div class="form-check form-switch d-flex justify-content-center">
+              <input
+                class="form-check-input fs-5"
+                type="checkbox"
+                role="switch"
+                id="flexSwitchCheckDefault"
+                [checked]="!representative.lockoutEnabled"
+              />
+              <label class="form-check-label ms-2">
+                <ng-container
+                  *ngIf="!representative.lockoutEnabled; else lockedState"
+                >
+                  نشط
+                </ng-container>
+                <ng-template #lockedState> غير نشط </ng-template>
+              </label>
+            </div>
+          </td>
+
+          <td class="text-center">
+            {{ representative.companyOrderPrecentage }}%
+          </td>
+          <td class="text-center">
+            <ng-container *ngIf="representative.salePrecentage === 1">
+              {{ getDiscountTypeValue(1) }}
+            </ng-container>
+            <ng-container *ngIf="representative.salePrecentage === 2">
+              {{ getDiscountTypeValue(2) }}
+            </ng-container>
+          </td>
+
+          <td class="text-center">
+            {{ getGovernorateNames(representative.governorates) }}
+          </td>
+          <td class="text-center">{{ representative.branchName }}</td>
+          <td class="text-center">{{ representative.phoneNumber }}</td>
+          <td class="text-center">{{ representative.email }}</td>
+          <td class="text-center">{{ representative.fullName }}</td>
+          <td class="text-center">{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Pagination Controls -->
+    <div class="d-flex justify-content-between">
+      <button class="btn btn-primary" (click)="previousPage()" [disabled]="currentPage === 1">
+        السابق
+      </button>
+      <span>الصفحة {{ currentPage }} من {{ totalPages }}</span>
+      <button class="btn btn-primary" (click)="nextPage()" [disabled]="currentPage === totalPages">
+        التالي
+      </button>
+    </div>
+
+    <div class="modal" [ngClass]="{ 'd-block': modalOpen }" tab-index="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header justify-content-end align-items-center">
+            <h3 class="text-end text-center mb-0" dir="rtl">
+              {{ modalTitle }}
+            </h3>
+            <button
+              type="button"
+              class="btn-close ms-0"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              (click)="closeModal()"
+            ></button>
+          </div>
+          <div class="modal-body" dir="rtl">
+            <form
+              #representativeForm="ngForm"
+              (ngSubmit)="onSubmit(representativeForm)"
+            >
+              <div>
+                <input
+                  type="text"
+                  name="FullName"
+                  [(ngModel)]="selectedfullName"
+                  class="form-control"
+                  placeholder="الاسم"
+                  aria-label="Username"
+                  aria-describedby="basic-addon1"
+                  dir="rtl"
+                />
+              </div>
+              <div>
+                <input
+                  type="email"
+                  name="Email"
+                  [(ngModel)]="selectedEmail"
+                  class="form-control"
+                  autocomplete="off"
+                  placeholder="البريد اللإلكتروني"
+                  aria-label="email"
+                  aria-describedby="basic-addon1"
+                  dir="rtl"
+                />
+              </div>
+              <div>
+                <input
+                  type="password"
+                  name="Password"
+                  [(ngModel)]="selectedpassword"
+                  class="form-control"
+                  autocomplete="off"
+                  placeholder="كلمة المرور"
+                  aria-label="password"
+                  aria-describedby="basic-addon1"
+                  dir="rtl"
+                />
+              </div>
+              <div>
+                <input
+                  type="text"
+                  name="PhoneNumber"
+                  [(ngModel)]="selectedphoneNumber"
+                  class="form-control"
+                  placeholder="رقم الهاتف"
+                  aria-label="Username"
+                  aria-describedby="basic-addon1"
+                  dir="rtl"
+                />
+              </div>
+              <div>
+                <input
+                  type="text"
+                  name="Address"
+                  [(ngModel)]="selectedaddress"
+                  class="form-control"
+                  placeholder="العنوان"
+                  aria-label="Username"
+                  aria-describedby="basic-addon1"
+                  dir="rtl"
+                />
+              </div>
+              <div>
+                <mat-form-field>
+                  <mat-label>الفرع</mat-label>
+                  <mat-select [(ngModel)]="selectedBranchId" name="Branch_Id">
+                    <mat-option
+                      *ngFor="let branch of branches"
+                      [value]="branch.id"
+                    >
+                      {{ branch.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div>
+                <mat-form-field>
+                  <mat-label>المحافظات</mat-label>
+                  <mat-select [formControl]="frmControlGovernorates" multiple>
+                    <mat-option
+                      *ngFor="let governorate of governorates"
+                      [value]="governorate.id"
+                    >
+                      {{ governorate.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div>
+                <mat-form-field>
+                  <mat-label>نوع الخصم</mat-label>
+                  <mat-select
+                    [(ngModel)]="selectedPercent"
+                    name="SalePrecentage"
+                  >
+                    <mat-option
+                      *ngFor="let type of discountTypes"
+                      [value]="type.value"
+                    >
+                      {{ type.viewValue }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div>
+                <input
+                  type="number"
+                  name="CompanyOrderPrecentage"
+                  [(ngModel)]="selectedCompanyOrderPrecentage"
+                  class="form-control"
+                  placeholder="نسبة الشركة من الطلب"
+                  aria-label="Username"
+                  aria-describedby="basic-addon1"
+                  dir="rtl"
+                  min="0"
+                />
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                  (click)="closeModal()"
+                >
+                  اغلاق
+                </button>
+                <button type="submit" class="btn btn-primary">
+                  {{ modalAction }}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

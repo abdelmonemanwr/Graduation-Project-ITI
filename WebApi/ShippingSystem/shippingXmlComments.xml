@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ShippingSystem</name>
+    </assembly>
+    <members>
+        <member name="M:ShippingSystem.Controllers.GroupController.GetAll(System.Int32,System.Int32)">
+            <summary>
+            get all groups with pagination
+            </summary>
+            <param name="pageNumber"></param>
+            <param name="pageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ShippingSystem.Controllers.GroupController.GetById(System.String)">
+            <summary>
+            get group by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ShippingSystem.Controllers.GroupController.GetByName(System.String)">
+            <summary>
+            get group by name
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ShippingSystem.Controllers.GroupController.Add(System.String)">
+            <summary>
+            add a new group
+            </summary>
+            <param name="groupDTO"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ShippingSystem.Controllers.GroupController.Update(System.String,System.String)">
+            <summary>
+            update group data
+            </summary>
+            <param name="id"></param>
+            <param name="groupDTO"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ShippingSystem.Controllers.GroupController.Delete(System.String)">
+            <summary>
+            delete group by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ShippingSystem.Migrations.yousefv1">
+            <inheritdoc />
+        </member>
+        <member name="M:ShippingSystem.Migrations.yousefv1.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ShippingSystem.Migrations.yousefv1.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ShippingSystem.Migrations.yousefv1.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:ShippingSystem.Migrations.yousefv2">
+            <inheritdoc />
+        </member>
+        <member name="M:ShippingSystem.Migrations.yousefv2.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ShippingSystem.Migrations.yousefv2.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ShippingSystem.Migrations.yousefv2.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:ShippingSystem.Migrations.men3mv3">
+            <inheritdoc />
+        </member>
+        <member name="M:ShippingSystem.Migrations.men3mv3.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ShippingSystem.Migrations.men3mv3.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ShippingSystem.Migrations.men3mv3.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ShippingSystem.Repositories.GenericRepository`1.#ctor(ShippingSystem.Models.ShippingContext)">
+            <summary>
+            shipping parameterized constructor
+            </summary>
+            <param name="db"></param>
+        </member>
+        <member name="M:ShippingSystem.Repositories.GenericRepository`1.Add(`0)">
+            <summary>
+            Add Object to Database
+            </summary>
+            <param name="obj"></param>
+        </member>
+        <member name="M:ShippingSystem.Repositories.GenericRepository`1.Delete(System.Int32)">
+            <summary>
+            Delete By Integer Id
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:ShippingSystem.Repositories.GenericRepository`1.Delete(System.String)">
+            <summary>
+            Delete By String Id
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:ShippingSystem.Repositories.GenericRepository`1.Delete(`0)">
+            <summary>
+            Delete Object
+            </summary>
+            <param name="obj"></param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:ShippingSystem.Repositories.GenericRepository`1.GetAll" -->
+        <member name="M:ShippingSystem.Repositories.GenericRepository`1.GetById(System.Int32)">
+            <summary>
+            Get Object By Integer Id
+            </summary>
+            <param name="id"></param>
+            <returns>Object</returns>
+        </member>
+        <member name="M:ShippingSystem.Repositories.GenericRepository`1.GetById(System.String)">
+            <summary>
+            Get Object By String Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ShippingSystem.Repositories.GenericRepository`1.Update(`0)">
+            <summary>
+            Edit Object Data
+            </summary>
+            <param name="obj"></param>
+        </member>
+        <member name="M:ShippingSystem.Repositories.GenericRepository`1.Save">
+            <summary>
+            Save Changes to Database
+            </summary>
+            <returns>Number of Affected Rows</returns>
+        </member>
+        <member name="T:ShippingSystem.Repositories.IGroupRepository">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ShippingSystem.Repositories.IGroupRepository.GetGroupsAsync(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="pageNumber"></param>
+            <param name="pageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ShippingSystem.Repositories.IGroupRepository.GetGroupByNameAsync(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="groupName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ShippingSystem.Repositories.IGroupRepository.Detach(ShippingSystem.Models.Group)">
+            <summary>
+            stop tracking old group
+            </summary>
+            <param name="oldGroup"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

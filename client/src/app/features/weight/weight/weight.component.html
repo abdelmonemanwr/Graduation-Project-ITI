@@ -1,0 +1,25 @@
+<div class="container-fluid p-4" dir="rtl">
+  <div class="formbg p-4 mt-3" style="background-color: #f2f2f2;">
+    <div class="px-4 py-2">
+      <div class="page p-4 my-3 mx-auto rounded text-center">
+        <div>
+          <p class="py-4 rounded textColor center-text">اعدادات تكلفة الشحن الاضافيه بالنسبه لوزن الشحنه</p>
+        </div>
+        <form class="flex flex-wrap" [formGroup]="weightForm" (ngSubmit)="onSubmit()">
+          <div class="d-flex flex-row justify-content-center gap-2">
+            <label for="maximumWeight" class="form-control w-50 text-right">تكلفة الشحن الاضافيه (بالجنيه) من 0 كجم الي وزن</label>
+            <input type="number" id="maximumWeight" class="form-control w-25" formControlName="maximumWeight" />
+            <div class="m-1 text-center" style="font-weight: 600; color: #4f6d7a;">كجم</div>
+          </div>
+
+          <div class="d-flex flex-row justify-content-center mt-4 gap-2">
+            <label for="additionalKgPrice" class="form-control w-50 text-right">سعر كل كجم اضافي</label>
+            <input type="number" id="additionalKgPrice" class="form-control w-25" formControlName="additionalKgPrice" />
+            <div class="m-1 text-center" style="font-weight: 600; color: #4f6d7a;">جم</div>
+          </div>
+          <button type="submit" class=" mt-4 px-4 py-2">حفظ</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

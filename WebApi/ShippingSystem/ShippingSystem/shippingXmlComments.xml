@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ShippingSystem</name>
+    </assembly>
+    <members>
+        <member name="T:ShippingSystem.Migrations.yousefv1">
+            <inheritdoc />
+        </member>
+        <member name="M:ShippingSystem.Migrations.yousefv1.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ShippingSystem.Migrations.yousefv1.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ShippingSystem.Migrations.yousefv1.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:ShippingSystem.Migrations.yousefv2">
+            <inheritdoc />
+        </member>
+        <member name="M:ShippingSystem.Migrations.yousefv2.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ShippingSystem.Migrations.yousefv2.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ShippingSystem.Migrations.yousefv2.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:ShippingSystem.Repositories.GenericRepository`1.#ctor(ShippingSystem.Models.ShippingContext)">
+            <summary>
+            shipping parameterized constructor
+            </summary>
+            <param name="_db"></param>
+        </member>
+        <member name="M:ShippingSystem.Repositories.GenericRepository`1.Add(`0)">
+            <summary>
+            Add Object to Database
+            </summary>
+            <param name="obj"></param>
+        </member>
+        <member name="M:ShippingSystem.Repositories.GenericRepository`1.Delete(System.Int32)">
+            <summary>
+            Delete By Id
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:ShippingSystem.Repositories.GenericRepository`1.Delete(`0)">
+            <summary>
+            Delete Object
+            </summary>
+            <param name="obj"></param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:ShippingSystem.Repositories.GenericRepository`1.GetAll" -->
+        <member name="M:ShippingSystem.Repositories.GenericRepository`1.GetById(System.Int32)">
+            <summary>
+            Get Object By Id
+            </summary>
+            <param name="id"></param>
+            <returns>Object</returns>
+        </member>
+        <member name="M:ShippingSystem.Repositories.GenericRepository`1.Update(`0)">
+            <summary>
+            Edit Object Data
+            </summary>
+            <param name="obj"></param>
+        </member>
+        <member name="M:ShippingSystem.Repositories.GenericRepository`1.Save">
+            <summary>
+            Save Changes to Database
+            </summary>
+            <returns>Number of Affected Rows</returns>
+        </member>
+    </members>
+</doc>
