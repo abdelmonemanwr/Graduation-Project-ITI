@@ -1,0 +1,90 @@
+<div class="container" dir="rtl">
+  <h2 class="title">تقارير الطلبات حسب الحالة</h2>
+  <div class="filters">
+    <mat-form-field appearance="fill">
+      <mat-label>الحالات</mat-label>
+      <mat-select [(ngModel)]="selectedStatus" >
+        <mat-option  >الكل</mat-option>              
+        <mat-option *ngFor="let key of getEnumKeys(orderStatus)" [value]="key" >{{orderStatus[key]}}</mat-option>              
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>من</mat-label>
+      <input matInput [matDatepicker]="startPicker" [(ngModel)]="startDate">
+      <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+      <mat-datepicker #startPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>إلى</mat-label>
+      <input matInput [matDatepicker]="endPicker" [(ngModel)]="endDate">
+      <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+      <mat-datepicker #endPicker></mat-datepicker>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="filterOrders()">بحث</button>
+  </div>
+
+  <div class="row justify-content-center my-3">
+    <div class="col-12">
+      <table class="table text-center my-4" id="tableId">
+        <thead class="table-primary">
+          <tr  class="text-center">
+            <th class="text-left">#</th>
+            <th class="text-left">الحالة</th>
+            <th class="text-left">التاجر</th>
+            <th class="text-left">العميل</th>
+            <th class="text-left">رقم العميل</th>
+            <th class="text-left">المحافظة</th>
+            <th class="text-left">المدينة</th>
+            <th class="text-left">تكلفة الطلب</th>
+            <th class="text-left">تكلفة الشحن</th>
+            <th class="text-left"> التاريخ</th>
+            <!-- <th class="text-left">حذف</th>
+            <th class="text-left"style="color: #ccc ;font-size: larger;"><i class="fa-solid fa-print"></i></th> -->
+          </tr>
+        </thead>
+
+        <tbody class="text-center">
+          <tr *ngFor="let order of orders;let i = index">
+            <td>{{i+1}}</td>
+            <td> {{getEnumKey(orderStatus,order.orderStatus)}}</td>
+            <td> {{order.merchantName}}</td>
+            <td> {{order.customerName}}</td>
+            <td>{{order.customerPhone1}}</td>
+            <td>{{order.governateName}}</td>
+            <td>{{order.cityName}}</td>
+            <td>{{order.orderCost}}</td>
+            <td>{{(order.totalCost-order.orderCost)}}</td>
+            <td>{{order.orderDate}}</td>
+            <!-- <td><a style="color: #f37735;font-size: larger;" [routerLink]="['/order','edit',order.id]"><i class="fa-regular fa-pen-to-square"></i></a></td>
+            <td><a style="font-size:10px;font-weight: bold;" class="btn btn-primary" >الحاله</a></td>
+            <td><a style="font-size:10px;font-weight: bold;" class ="btn btn-primary">اسناد</a> </td>
+            <td><a style="color: #d90429;font-size: larger;" ><i class="fa-solid fa-trash-can"></i></a></td>
+            <td><a style="color: #00b4d8;font-size: larger;"><i class="fa-solid fa-print"></i></a></td> -->
+          </tr>
+          <!-- Additional table rows -->
+        </tbody>
+      </table>
+      <!-- Pagination -->
+      <nav>
+        <ul class="pagination justify-content-end">
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+          </li>
+          <li class="page-item active" aria-current="page">
+            <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+
+</div>

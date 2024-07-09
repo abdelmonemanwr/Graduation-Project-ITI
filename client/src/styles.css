@@ -1,0 +1,50 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@font-face {
+    font-family: Poppins-Bold;
+    src: url('./fonts/Poppins/Poppins-Bold.ttf'); 
+}
+
+@font-face {
+    font-family: Poppins-Regular;
+    src: url('./fonts/Poppins/Poppins-Regular.ttf'); 
+}
+
+
+@font-face {
+    font-family: Poppins-Medium;
+    src: url('./fonts/Poppins/Poppins-Medium.ttf'); 
+  }
+
+@font-face {
+    font-family: Montserrat-Regular;
+    src: url('./fonts/Montserrat/Montserrat-Regular.ttf'); 
+}
+  
+@font-face {
+    font-family: Montserrat-Bold;
+    src: url('./fonts/Montserrat/Montserrat-Bold.ttf'); 
+}
+
+
+@font-face {
+    font-family: Poppins-SemiBold;
+    src: url('./fonts/Poppins/Poppins-SemiBold.ttf');
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: serif;
+}
+/* General Font Style */
+body, .modal-body, .form-container, .form-control, .col-form-label {
+  font-family: 'Roboto', sans-serif; /* Use a clean and modern font */
+  font-size: 16px;
+  color: #333; /* Dark gray for text */
+}

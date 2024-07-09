@@ -1,0 +1,93 @@
+input[type="checkbox"] {
+  position: relative;
+  width: 1.5em;
+  height: 1.5em;
+  border: 1px solid #1ca3c4;
+  border-radius: 4px;
+  appearance: none;
+  outline: 0;
+  cursor: pointer;
+}
+
+input[type="checkbox"]::before {
+  position: absolute;
+  content: "";
+  display: block;
+  top: 2px;
+  left: 7px;
+  width: 8px;
+  height: 14px;
+  border-style: solid;
+  border-color: #ffffff;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+  opacity: 0;
+}
+
+input[type="checkbox"]:checked {
+  color: #1ca3c4;
+  border-color: #15467e;
+  background: #15467e;
+}
+
+input[type="checkbox"]:checked::before {
+  opacity: 1;
+}
+
+.table-dark {
+  background-color: #15467e !important;
+  color: black !important;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.table tbody tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.table th {
+  vertical-align: middle;
+  font-size: 1.15em;
+}
+.table td {
+  vertical-align: middle;
+  font-size: 1.05em;
+}
+
+.error {
+  color: red;
+  margin-top: 5px;
+}
+
+.textColor {
+  color: #000;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.form-group {
+  direction: rtl;
+  margin-right: 10%;
+}
+
+.form-label {
+  font-size: large;
+  font-family: serif;
+}
+
+.table {
+  width: 80%;
+  margin: 0 auto;
+  margin-bottom: 25px;
+}
+
+.btn {
+  width: 15%;
+  background-color: #15467e;
+  border-color: #1ca3c4;
+  margin-left: 10%;
+}

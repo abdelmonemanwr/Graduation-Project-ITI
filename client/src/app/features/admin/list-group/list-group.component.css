@@ -1,0 +1,59 @@
+.search-container {
+  display: flex;
+  align-items: center;
+}
+
+.search-field {
+  width: 250px;
+}
+
+.table-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.centered-table {
+  width: 70%;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+mat-paginator {
+  text-align: center;
+}
+
+mat-paginator .mat-paginator-page-size {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mat-paginator-page-size-select {
+  max-width: 50px;
+  text-align: center;
+}
+
+.mat-paginator-range-label {
+  margin: 0 10px;
+}
+
+.mat-paginator-navigation-previous,
+.mat-paginator-navigation-next {
+  margin: 0 5px;
+}
+
+mat-icon-button {
+  color: #15467e;
+  margin: 0 5px;
+  vertical-align: center;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+  margin-top: 30px;
+}

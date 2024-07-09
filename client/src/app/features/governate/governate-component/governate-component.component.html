@@ -1,0 +1,103 @@
+<div class="container py-5 mx-auto">
+    <div class="row">
+
+      <div class="col-12">
+        <div class="py-3">
+            <button class="btn btn-secondary" (click)="openModal()">اضافة محافظة</button>
+
+        </div>
+      </div>
+        
+        <div class="col-12">
+       <div class="d-flex justify-content-between align-items-center">
+            <form class="d-flex justify-content-between form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2  me-4" type="search" placeholder="بحث عن محافظة" aria-label="Search" [(ngModel)] = "governateName" name="governateName">
+                <button class="btn btn-outline-secondary my-2 my-sm-0" type="button" (click)="search()">Search</button>
+            </form>
+    
+    
+            <div>
+                <select class="form-select" aria-label="Default select example">
+                    <option value = "0" selected>All</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                  </select>
+            </div>
+           
+        </div>
+        
+        </div>
+        
+        <div class="col-12">
+        <table class="table my-5">
+            <thead>
+              <tr class="table-header">
+                  <th scope="col" class="text-center">الاعدادات</th>
+                  <th scope="col" class="text-center">الحالة</th>
+                  <th scope="col" class="text-center">المحافظة</th>
+                  <th scope="col" class="text-center">#</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let gover of governates">
+                <td scope="row" class="text-center">
+                    <div class="d-flex justify-content-center">
+                        <i class="bi bi-trash3-fill text-danger me-2 fs-4" (click)="deleteGovernate(gover.id)"></i>
+                        <i class="mx-1 fs-5 text-info bi bi-pencil-square fs-4" (click)="editGovernate(gover)"></i>
+                    </div>
+                </td>
+                <td class="text-center">
+                    <div class="form-check form-switch d-flex justify-content-center ">
+                        <input class="form-check-input fs-5" type="checkbox" role="switch" id="flexSwitchCheckDefault" [checked]="gover.status">
+                    </div>
+                </td>
+                <td class="text-center fs-5">{{gover.name}}</td>
+                <td class="text-center fs-5">{{gover.id}}</td>
+              </tr>
+            </tbody>
+        </table> 
+
+        <app-pagination
+        [totalItems]="totalItems"
+        [itemsPerPage]="pageSize"
+        [currentPage]="pageNumber"
+        (pageChange)="onPageChange($event)">
+        </app-pagination>
+        </div>
+        <div class="modal"  [ngClass]="{'d-block' :modalOpen}" tab-index="-1">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header justify-content-end align-items-center">
+                  <h3 class="text-end text-center mb-0 fs-4" dir="rtl" >{{editFlag == true ? "تعديل محافظة" : "اضافة محافظة"}}</h3>
+                  <button type="button " class="btn-close ms-0" data-bs-dismiss="modal" aria-label="Close" (click) = "closeModal()"></button>
+                </div>
+
+                <form (submit)="governateHandler()" [formGroup]="governateForm">
+                  <div class="modal-body d-flex align-items-center" dir="rtl">
+                      <div>
+                        <input type="text" class="form-control" placeholder="اسم المحافظة" aria-label="Username" aria-describedby="basic-addon1" dir="rtl" formControlName="name">
+                      </div>
+                      <div class="form-check form-switch " dir="rtl">
+                          <input class="form-check-input fs-5 " type="checkbox" role="switch" id="flexSwitchCheckDefault" dir="rtl" formControlName="status">
+                      </div>    
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click) = "closeModal()">اغلاق</button>
+                    <button type="submit" class="btn btn-primary"  >{{editFlag == true ? " تعديل" : "اضافة"}}</button>
+                </div>
+                </form>
+              </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+   
+</div>
+
+

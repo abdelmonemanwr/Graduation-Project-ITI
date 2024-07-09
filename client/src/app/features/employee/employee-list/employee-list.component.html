@@ -1,0 +1,57 @@
+<div class="container">
+    <div class="row mx-auto">
+      <div class="col-12 d-flex justify-content-between py-5">
+        <button class="btn btn-primary" [routerLink]="['/employee/add']">اضافه موظف جديد</button>
+      
+        <div class=" d-flex justify-content-between ">
+          <input type="text" class="form-control" placeholder="بحث"  [(ngModel)] = 'employeeName' name="cityName">
+          <button class="btn btn-outline-secondary" type="button" (click)="search()">Search</button>
+        </div>
+
+       </div>
+    
+       <div class="col-12 py-4">
+        <table class="table table-bordered">
+          <thead>
+            <tr class="table-header">
+              <th scope="col" class="text-center">تعديل</th>
+              <th scope="col" class="text-center">الحالة</th>
+              <th scope="col" class="text-center">الصلاحيات</th>
+              <th scope="col" class="text-center">الفرع</th>
+              <th scope="col" class="text-center">رقم الهاتف</th>
+              <th scope="col" class="text-center">البريد الإلكتروني</th>
+              <th scope="col" class="text-center">الاسم</th>
+              <th scope="col" class="text-center">رقم التعريف</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let employee of employees; let i = index" >
+              <td >
+                <!-- <button class="btn btn-sm btn-primary">تعديل</button> -->
+                <div class="d-flex justify-content-center">
+                  <i class="bi bi-trash3-fill text-danger me-2 fs-4" (click)='delete(employee.id)'  ></i>
+                  <i class="mx-1 fs-5 text-info bi bi-pencil-square fs-4"  [routerLink]="['/employee','edit',employee.id]" ></i>
+                  
+                </div>
+              </td>
+              <td scope="row">
+                <div class="form-check form-switch justify-content-center d-flex " dir="rtl">
+                  <input class="form-check-input fs-5 " type="checkbox" role="switch" name="status"  id="flexSwitchCheckDefault" dir="rtl" [checked]="employee.status">
+                </div>    
+              </td>
+              <td class="text-center">{{ employee.roles }}</td>
+              <td class="text-center">{{ employee.branchName}}</td>
+              <td class="text-center">{{ employee.phone }}</td>
+              <td class="text-center">{{ employee.email }}</td>
+              <td class="text-center">{{ employee.fullName }}</td>
+              <td class="text-center">{{i+1}}</td>
+            </tr>
+          </tbody>
+        </table>
+       </div>
+   
+    </div>
+    <!-- <pagination-controls (pageChange)="p = $event" [directionLinks]="true" [autoHide]="true"
+                         previousLabel="&#8592;" nextLabel="&#8594;"></pagination-controls> -->
+  </div>
+  

@@ -1,0 +1,43 @@
+<div class="px-4 py-2">
+  <div class="page p-4 my-3 mx-auto rounded">
+    <form class="flex flex-wrap" [formGroup]="groupForm" (ngSubmit)="onSubmit()">
+      <div class="form-group text-right">
+        <label for="groupName" class="form-label textColor">اسم المجموعة</label>
+        <input type="text" id="groupName" class="form-control" placeholder="من فضلك ادخل اسم المجموعة"
+          [ngClass]="{ 'is-invalid': groupForm.get('groupName')?.invalid && (groupForm.get('groupName')?.dirty || groupForm.get('groupName')?.touched) }"
+          style="width: 25%;" formControlName="groupName" required>
+        <div
+          *ngIf="groupForm.get('groupName')?.hasError('required') && (groupForm.get('groupName')?.dirty || groupForm.get('groupName')?.touched)"
+          class="form-text text-danger">برجاء ادخال اسم المجموعة</div>
+        <div
+          *ngIf="groupForm.get('groupName')?.hasError('groupExists') && (groupForm.get('groupName')?.dirty || groupForm.get('groupName')?.touched)"
+          class="form-text text-danger">هذه المجموعة موجودة بالفعل</div>
+      </div>
+
+      <table class="table mt-3 rounded" dir="rtl">
+        <thead class="table-dark table-hover table-responsive text-center">
+          <tr>
+            <th>#</th>
+            <th>اسم الصلاحية</th>
+            <th>إضافة</th>
+            <th>حذف</th>
+            <th>تعديل</th>
+            <th>عرض</th>
+          </tr>
+        </thead>
+        <tbody formArrayName="privileges" class="text-center">
+          <tr *ngFor="let privilege of privilegesFormArray.controls; let i = index" [formGroupName]="i">
+            <td class="py-4 fs-6 fw-medium">{{ i + 1 }}</td>
+            <td class="py-4 fs-6 fw-bold">{{ privileges[i].name }}</td>
+            <td class="py-4"><input type="checkbox" formControlName="Add" class="form-check-input"></td>
+            <td class="py-4"><input type="checkbox" formControlName="Delete" class="form-check-input"></td>
+            <td class="py-4"><input type="checkbox" formControlName="Update" class="form-check-input"></td>
+            <td class="py-4"><input type="checkbox" formControlName="View" class="form-check-input"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <button type="submit" class="btn btn-primary"> {{addMode ? 'إضافة المجموعة' : 'تعديل المجموعة'}}</button>
+    </form>
+  </div>
+</div>

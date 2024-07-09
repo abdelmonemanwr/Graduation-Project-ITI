@@ -1,0 +1,125 @@
+<div class="container">
+  <div class="row">
+    <h2 class="mb-4 text-center">{{editFlag == true ? 'تعديل موظف' : 'اضافة موظف'}}</h2>
+    <form [formGroup] ="employeeForm" (ngSubmit)="onSubmit()">
+      <h2>البيانات الشخصيه</h2>
+      <div class="form-group row">
+        <div class="col-sm-9">
+          <input id="name" class="form-control" formControlName="name" name="name"  placeholder="ادخل الاسم" dir="rtl" [ngClass]="{'is-invalid': employeeForm.controls['name'].invalid && employeeForm.controls['name'].touched}">
+          <ng-container *ngIf="employeeForm.get('name')?.touched || submitted">
+            <div  *ngIf="employeeForm.get('name')?.hasError('required') " class="form-text text-danger fs-6" dir="rtl">
+              الاسم مطلوب
+            </div>
+          </ng-container>
+         
+        </div>
+        <label for="name" class="col-sm-3 col-form-label text-right">الاسم</label>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-9">
+          <input id="phone" class="form-control" formControlName="phone" name="phone"  placeholder="ادخل رقم الهاتف" dir="rtl">
+          <ng-container *ngIf="employeeForm.get('phone')?.touched || submitted">
+            <div  *ngIf="employeeForm.get('phone')?.hasError('required') " class="form-text text-danger fs-6" dir="rtl">
+              رقم الهاتف مطلوب
+            </div>
+          </ng-container>
+        </div>
+        <label for="phone" class="col-sm-3 col-form-label text-right">رقم الهاتف</label>
+      </div>
+      <div class="form-group d-flex  align-items-center" dir="rtl">
+        <label for="name" class="col-sm-3 col-form-label text-right">الحالة</label>
+        <div class="form-check form-switch " dir="rtl">
+          <input class="form-check-input fs-5 " type="checkbox" role="switch" name="status"  id="flexSwitchCheckDefault" dir="rtl" formControlName="status">
+          <ng-container *ngIf="employeeForm.get('status')?.touched || submitted">
+            <div  *ngIf="employeeForm.get('status')?.hasError('required') " class="form-text text-danger fs-6" dir="rtl">
+             حالة الموظف مطلوبه
+            </div>
+          </ng-container>
+        </div>    
+      </div>
+      <h2>معلومات الحساب</h2>
+  
+      <div class="form-group row">
+        <div class="col-sm-9">
+          <input id="userName" class="form-control" formControlName="userName" name="userName"  placeholder="ادخل اسم المستخدم" dir="rtl">
+          <ng-container *ngIf="employeeForm.get('userName')?.touched || submitted">
+            <div  *ngIf="employeeForm.get('userName')?.hasError('required') " class="form-text text-danger fs-6" dir="rtl">
+              اسم المستخدم مطلوب        
+            </div>
+          </ng-container>
+          <ng-container *ngIf="employeeForm.get('userName')?.touched || submitted">
+            <div  *ngIf="employeeForm.get('userName')?.hasError('duplicateUserName')" class="form-text text-danger fs-6" dir="rtl">
+              اسم المستخدم موجود مسبقا     
+            </div>
+          </ng-container>
+        </div>
+        <label for="name" class="col-sm-3 col-form-label text-right">اسم المستخدم</label>
+       
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-9">
+          <input id="email" class="form-control" formControlName="email"  placeholder="ادخل البريد الإلكتروني" dir="rtl">
+          <ng-container *ngIf="employeeForm.get('email')?.touched || submitted">
+            <div  *ngIf="employeeForm.get('email')?.hasError('required') " class="form-text text-danger fs-6" dir="rtl">
+             الرجاء ادخال البريد الالكتروني
+            </div>
+          </ng-container>
+          <ng-container *ngIf="employeeForm.get('email')?.hasError('duplicateEmail')">
+            <div class="form-text text-danger fs-6" dir="rtl">
+              البريد الإلكتروني موجود بالفعل
+            </div>
+          </ng-container>
+        </div>
+        <label for="email" class="col-sm-3 col-form-label text-right">البريد الإلكتروني</label>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-9">
+          <input id="password" class="form-control" type="password" formControlName="password" name = "password" placeholder="ادخل كلمه المرور" dir="rtl">
+          <ng-container *ngIf="employeeForm.get('password')?.touched || submitted">
+            <div  *ngIf="employeeForm.get('password')?.hasError('required') " class="form-text text-danger fs-6" dir="rtl">
+             الرجاء ادخال كلمه السر 
+            </div>
+          </ng-container>
+          
+        </div>
+        <label for="passowrd" class="col-sm-3 col-form-label text-right">كلمه المرور</label>
+      </div>
+      <h2>معلومات الموظف</h2>
+      <div class="form-group row">
+        <div class="col-sm-9">
+          <select id="branch" class="form-select" formControlName="branch" name="branch">
+            <option *ngFor="let branch of branches" >{{branch.name}}</option>
+          </select>
+          <ng-container *ngIf="employeeForm.get('branch')?.touched || submitted">
+            <div  *ngIf="employeeForm.get('branch')?.hasError('required') " class="form-text text-danger fs-6" dir="rtl">
+             الرجاء اختيار الفرع  
+            </div>
+          </ng-container>
+        </div>
+        <label for="branch" class="col-sm-3 col-form-label text-right">الفرع</label>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-9">
+          <select id="authorizations" class="form-select"  formControlName="role" name="role" >
+            <option *ngFor="let privelege of priveleges">{{privelege.name}}</option>
+          </select>
+          <ng-container *ngIf="employeeForm.get('role')?.touched || submitted">
+            <div  *ngIf="employeeForm.get('role')?.hasError('required') " class="form-text text-danger fs-6" dir="rtl">
+             الرجاء اختيار الصلاحية  
+            </div>
+          </ng-container>
+        </div>
+        <label for="branch" class="col-sm-3 col-form-label text-right">الصلاحيه</label>
+      </div>
+     
+      <div class="form-group row">
+        <div class="col-sm-9 offset-sm-3">
+          <button type="submit" class="btn btn-primary">{{editFlag == true ? 'تعديل موظف' : 'اضافة موظف'}}</button>
+        </div>
+      </div>
+    </form>
+  </div>
+ 
+</div>
+
+

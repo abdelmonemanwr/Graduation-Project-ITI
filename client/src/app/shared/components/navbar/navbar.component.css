@@ -1,0 +1,50 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #02428b;
+  color: white;
+}
+
+.branding {
+  flex: 1;
+}
+
+.logo {
+  color: white;
+  text-decoration: none;
+  font-size: 1.8rem;
+}
+
+.navbar {
+  flex: 2;
+}
+
+.nav-links {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+}
+
+.nav-links li {
+  margin-right: 1rem;
+}
+
+.user-menu {
+  flex: 1;
+  text-align: right;
+}
+
+.user-menu button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.user-menu a {
+  color: white;
+  text-decoration: none;
+  margin-left: 1rem;
+}

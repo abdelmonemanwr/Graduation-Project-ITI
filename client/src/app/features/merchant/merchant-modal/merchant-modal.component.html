@@ -1,0 +1,143 @@
+<div class="modalContainer">
+  <div class="merchant-modal-header">
+    <div class="d-flex justify-content-center align-items-center w-100">
+      <h1 class="merchant-modal-title">بيانات التاجر</h1>
+    </div>
+      <button type="button" class="btn-close" aria-label="Close" (click)="onNoClick()"></button>
+</div>
+<div class="merchant-modal-body">
+  <div class="container">
+    <div class="row">
+      <div class="col-8 offset-md-2" style="text-align: right;">
+   <!-- Merchant ID -->
+   <div class="form-group row text-right">
+    <div class="col-8">
+      <input type="text" id="merchantId" class="form-control-plaintext" [value]="data.merchant.id" readonly>
+    </div>
+    <label for="merchantId" class="col-form-label col-4 text-right">:كود التاجر</label>
+  </div>
+
+  <!-- Full Name -->
+  <div class="form-group row text-right">
+    <div class="col-8">
+      <input type="text" id="fullName" class="form-control-plaintext" [value]="data.merchant.fullName" readonly>
+    </div>
+    <label for="fullName" class="col-form-label col-4 text-right">:الاسم بالكامل</label>
+  </div>
+
+  <!-- Username -->
+  <div class="form-group row text-right">
+    <div class="col-8">
+      <input type="text" id="userName" class="form-control-plaintext" [value]="data.merchant.userName" readonly>
+    </div>
+    <label for="userName" class="col-form-label col-4 text-right">:اسم المستخدم</label>
+  </div>
+
+  <!-- Email -->
+  <div class="form-group row text-right">
+    <div class="col-8">
+      <input type="email" id="email" class="form-control-plaintext" [value]="data.merchant.email" readonly>
+    </div>
+    <label for="email" class="col-form-label col-4 text-right">:الايميل</label>
+  </div>
+
+  <!-- Phone Number -->
+  <div class="form-group row text-right">
+    <div class="col-8">
+      <input type="tel" id="phoneNumber" class="form-control-plaintext" [value]="data.merchant.phoneNumber" readonly>
+    </div>
+    <label for="phoneNumber" class="col-form-label col-4 text-right">:رقم الهاتف</label>
+  </div>
+
+  <!-- Store Name -->
+  <div class="form-group row text-right">
+    <div class="col-8">
+      <input type="text" id="storeName" class="form-control-plaintext" [value]="data.merchant.storeName" readonly>
+    </div>
+    <label for="storeName" class="col-form-label col-4 text-right">:اسم المتجر</label>
+  </div>
+
+  <!-- Address -->
+  <div class="form-group row text-right">
+    <div class="col-8">
+      <input type="text" id="address" class="form-control-plaintext" [value]="data.merchant.address" readonly>
+    </div>
+    <label for="address" class="col-form-label col-4 text-right">:العنوان</label>
+  </div>
+
+  <!-- City -->
+  <div class="form-group row text-right">
+    <div class="col-8">
+      <input type="text" id="city" class="form-control-plaintext" [value]="data.merchant.city" readonly>
+    </div>
+    <label for="city" class="col-form-label col-4 text-right">:المدينه</label>
+  </div>
+
+  <!-- Governate -->
+  <div class="form-group row text-right">
+    <div class="col-8">
+      <input type="text" id="governate" class="form-control-plaintext" [value]="data.merchant.governate" readonly>
+    </div>
+    <label for="governate" class="col-form-label col-4 text-right">:المحافظه</label>
+  </div>
+
+  <!-- Branch Name -->
+  <div class="form-group row text-right">
+    <div class="col-8">
+      <input type="text" id="branchName" class="form-control-plaintext" [value]="data.merchant.branchName" readonly>
+    </div>
+    <label for="branchName" class="col-form-label col-4 text-right">:اسم الفرع</label>
+  </div>
+
+  <!-- Incomplete Shipping Ratio -->
+  <div class="form-group row text-right">
+    <div class="col-8">
+      <input type="text" id="inCompleteShippingRatio" class="form-control-plaintext" [value]="data.merchant.inCompleteShippingRatio" readonly>
+    </div>
+    <label for="inCompleteShippingRatio" class="col-form-label col-4 text-right">:تكلفه الشحن غير المكتمله</label>
+  </div>
+
+  <!-- Special Pickup Cost -->
+  <div class="form-group row text-right">
+    <div class="col-8">
+      <input type="text" id="specialPickupCost" class="form-control-plaintext" [value]="data.merchant.specialPickupCost" readonly>
+    </div>
+    <label for="specialPickupCost" class="col-form-label col-4 text-right">:تكلفه الشحن الخاصه</label>
+  </div>
+</div>
+        <div *ngIf="data.merchant.specialPrices.length > 0">
+          <h3 class="special-prices-title text-center">اسعار خاصه للمدن</h3>
+          <table class="table table-striped text-center">
+            <thead>
+              <tr>
+                <th>المحافظه</th>
+                <th>المدينه</th>
+                <th>التكلفه</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let price of data.merchant.specialPrices">
+                <td>{{price.governate}}</td>
+                <td>{{price.city}}</td>
+                <td>{{price.transportCost}}</td>
+              </tr>
+            </tbody>
+          </table>
+         <!-- Merchant Status -->
+         <div >
+          @if(data.merchant.isDeleted){
+            <p class="text-danger">هذا المستخدم غير نشط</p>
+          }@else{
+            <p class="text-success">هذا المستخدم  نشط</p>
+  
+          }
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="merchant-modal-footer">
+  <button class="btn btn-secondary m-2" (click)="onNoClick()">غلق</button>
+</div>
+</div>

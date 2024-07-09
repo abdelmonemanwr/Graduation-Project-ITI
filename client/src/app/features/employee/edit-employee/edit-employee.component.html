@@ -1,0 +1,94 @@
+<!-- <div class="container">
+  <h2 class="mb-4 text-center">تعديل الموظف</h2>
+  <form [formGroup]="editEmployeeForm" (ngSubmit)="onSubmit()">
+    <h2>البيانات الشخصيه</h2>
+    <div class="form-group row">
+      <div class="col-sm-9">
+        <input id="name" class="form-control" formControlName="name" [ngClass]="{'is-invalid': editEmployeeForm.controls['name'].invalid && editEmployeeForm.controls['name'].touched}" placeholder="ادخل الاسم">
+        <div *ngIf="editEmployeeForm.controls['name'].invalid && editEmployeeForm.controls['name'].touched" class="invalid-feedback">
+          الاسم مطلوب
+        </div>
+      </div>
+      <label for="name" class="col-sm-3 col-form-label text-right">الاسم</label>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-9">
+        <input id="phone" class="form-control" formControlName="phone" [ngClass]="{'is-invalid': editEmployeeForm.controls['phone'].invalid && editEmployeeForm.controls['phone'].touched}" placeholder="ادخل رقم الهاتف">
+        <div *ngIf="editEmployeeForm.controls['phone'].invalid && editEmployeeForm.controls['phone'].touched" class="invalid-feedback">
+          رقم الهاتف مطلوب
+        </div>
+      </div>
+      <label for="phone" class="col-sm-3 col-form-label text-right">رقم الهاتف</label>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-9">
+        <input id="name" class="form-control" formControlName="name" [ngClass]="{'is-invalid': editEmployeeForm.controls['name'].invalid && editEmployeeForm.controls['name'].touched}" placeholder="ادخل العنوان">
+        <div *ngIf="editEmployeeForm.controls['name'].invalid && editEmployeeForm.controls['name'].touched" class="invalid-feedback">
+          العنوان مطلوب
+        </div>
+      </div>
+      <label for="name" class="col-sm-3 col-form-label text-right">العنوان</label>
+    </div>
+    <h2>معلومات الحساب</h2>
+
+    <div class="form-group row">
+      <div class="col-sm-9">
+        <input id="name" class="form-control" formControlName="name" [ngClass]="{'is-invalid': editEmployeeForm.controls['name'].invalid && editEmployeeForm.controls['name'].touched}" placeholder="ادخل اسم المستخدم">
+        <div *ngIf="editEmployeeForm.controls['name'].invalid && editEmployeeForm.controls['name'].touched" class="invalid-feedback">
+          اسم المستخدم مطلوب
+        </div>
+      </div>
+      <label for="name" class="col-sm-3 col-form-label text-right">اسم المستخدم</label>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-9">
+        <input id="email" class="form-control" formControlName="email" [ngClass]="{'is-invalid': editEmployeeForm.controls['email'].invalid && editEmployeeForm.controls['email'].touched}" placeholder="ادخل البريد الإلكتروني">
+        <div *ngIf="editEmployeeForm.controls['email'].invalid && editEmployeeForm.controls['email'].touched" class="invalid-feedback">
+          الرجاء إدخال بريد إلكتروني صحيح
+        </div>
+      </div>
+      <label for="email" class="col-sm-3 col-form-label text-right">البريد الإلكتروني</label>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-9">
+        <input id="password" class="form-control" type="password" formControlName="password" [ngClass]="{'is-invalid': editEmployeeForm.controls['phone'].invalid && editEmployeeForm.controls['phone'].touched}" placeholder="ادخل كلمه المرور">
+        <div *ngIf="editEmployeeForm.controls['password'].invalid && editEmployeeForm.controls['phone'].touched" class="invalid-feedback">
+          كلمه المرور مطلوبه
+        </div>
+      </div>
+      <label for="phone" class="col-sm-3 col-form-label text-right">كلمه المرور</label>
+    </div>
+    <h2>معلومات الموظف</h2>
+
+    <div class="form-group row">
+      <div class="col-sm-9">
+        <select id="branch" class="form-control" formControlName="branch" [ngClass]="{'is-invalid': editEmployeeForm.controls['branch'].invalid && editEmployeeForm.controls['branch'].touched}">
+          <option ></option>
+        </select>
+        <div *ngIf="editEmployeeForm.controls['branch'].invalid && editEmployeeForm.controls['branch'].touched" class="invalid-feedback">
+          الفرع مطلوب
+        </div>
+      </div>
+      <label for="branch" class="col-sm-3 col-form-label text-right">الفرع</label>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-9">
+        <select id="authorizations" class="form-control" formControlName="authorizations" [ngClass]="{'is-invalid': editEmployeeForm.controls['branch'].invalid && editEmployeeForm.controls['authorizations'].touched}">
+          <option ></option>
+        </select>
+        <div *ngIf="editEmployeeForm.controls['authorizations'].invalid && editEmployeeForm.controls['authorizations'].touched" class="invalid-feedback">
+الصلاحيه مطلوبه    
+    </div>
+      </div>
+      <label for="branch" class="col-sm-3 col-form-label text-right">الصلاحيه</label>
+    </div>
+   
+    <div class="form-group row">
+      <div class="col-sm-9 offset-sm-3">
+        <button type="submit" class="btn btn-primary">تعديل الموظف</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+ -->
