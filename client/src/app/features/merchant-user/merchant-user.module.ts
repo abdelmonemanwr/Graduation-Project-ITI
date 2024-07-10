@@ -9,7 +9,6 @@ import { AllOrdersComponent } from './all-orders/all-orders.component';
 
 
 
-
 @NgModule({
   declarations: [MerchantscreenComponent,OrderFormComponent,AllOrdersComponent],
   imports: [
@@ -17,6 +16,7 @@ import { AllOrdersComponent } from './all-orders/all-orders.component';
     MerchantUserRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+              
   ]
 })
 export class MerchantUserModule { }
