@@ -1,47 +1,6 @@
 <div class="container-fluid p-4">
     <div class="formbg p-4 mt-3">
-      <!-- Tabs -->
-      <ul class="nav nav-pills mb-3 flex-row-reverse" id="pills-tab" role="tablist">
-
-        <li class="nav-item" role="presentation">
-            <!-- #pills-tab1 -->
-            <a class="nav-link active" id="pills-tab1-tab" data-bs-toggle="pill"  role="tab" aria-controls="pills-tab1" (click)="getAll()" aria-selected="true">الكل</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" id="pills-tab2-tab" data-bs-toggle="pill"  role="tab" aria-selected="false" (click)="filterOrder(orderStatus.New)">جديد</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" id="pills-tab3-tab" data-bs-toggle="pill"  role="tab" (click)="filterOrder(orderStatus.Pending)" aria-selected="false">قيد الانتظار</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" id="pills-tab4-tab" data-bs-toggle="pill"  role="tab" (click)="filterOrder(orderStatus.DeliveredToRepresentitive)" aria-selected="false">تم التسليم للمندوب</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" id="pills-tab5-tab" data-bs-toggle="pill"  role="tab" (click)="filterOrder(orderStatus.DeliveredToCustomer)" aria-selected="false">تم التسليم</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" id="pills-tab6-tab" data-bs-toggle="pill" role="tab" (click)="filterOrder(orderStatus.UnReachable)" aria-selected="false">لا يمكن الوصول</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" id="pills-tab7-tab" data-bs-toggle="pill"  role="tab"  (click)="filterOrder(orderStatus.Postponed)" aria-selected="false">تم التأجيل</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" id="pills-tab8-tab" data-bs-toggle="pill"  role="tab"  (click)="filterOrder(orderStatus.DeliveredPartially)" aria-selected="false">تم التسليم جزئيا</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" id="pills-tab9-tab" data-bs-toggle="pill"  role="tab"  (click)="filterOrder(orderStatus.CustomerCanceled)" aria-selected="false">تم الالغاء من قبل المستلم</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" id="pills-tab10-tab" data-bs-toggle="pill"  role="tab" (click)="filterOrder(orderStatus.RejectedWithPaying)" aria-selected="false">تم الرفض مع الدفع</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" id="pills-tab11-tab" data-bs-toggle="pill"  role="tab" (click)="filterOrder(orderStatus.RejectedWithPartialPaying)" aria-selected="false">رفض مع سداد جزء</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" id="pills-tab12-tab" data-bs-toggle="pill" role="tab"  (click)="filterOrder(orderStatus.RejectedFromEmployee)" aria-selected="false">رفض و لم يتم الدفع</a>
-        </li>
-        <!-- Add more tabs as needed -->
-      </ul>
+ 
       
       <div class="tab-content" style="direction: rtl;">
       
@@ -50,12 +9,7 @@
           <!-- Content for Tab 2 -->
           <div class="d-flex justify-content-between mb-3">
             <input type="search" style="width: 20%;" class="form-control" placeholder="ابحث...." />
-            <div class="d-flex">
-              <!-- PDF Icon -->
-              <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" style="width: 50px; height: 50px;" class="btn mr-3" title="PDF icons" />
-              <!-- Excel Icon -->
-              <img src="https://w7.pngwing.com/pngs/670/803/png-transparent-excel-logo-logos-logos-and-brands-icon-thumbnail.png" style="width: 50px; height: 50px;" class="btn mr-3" title="Excel icons" />
-            </div>
+            
           </div>
           <div class="row justify-content-center my-3">
             <div class="col-12">
@@ -69,8 +23,8 @@
                     <th class="text-left">المدينة</th>
                     <th class="text-left">تكلفة الطلب</th>
                     <th class="text-left"> تعديل الطلب</th>
-                    <th class="text-left">تغير الحاله </th>
-                    <th class="text-left"> اسناد </th>
+                    <!-- <th class="text-left">تغير الحاله </th>
+                    <th class="text-left"> اسناد </th> -->
                     <th class="text-left">حذف</th>
                     <th class="text-left"style="color: #ccc ;font-size: larger;"><i class="fa-solid fa-print"></i></th>
                   </tr>
@@ -85,8 +39,8 @@
                     <td>{{order.cityName}}</td>
                     <td>{{order.totalCost}}</td>
                     <td><a style="color: #f37735;font-size: larger;" [routerLink]="['/order','edit',order.id]"><i class="fa-regular fa-pen-to-square"></i></a></td>
-                    <td><a style="font-size:10px;font-weight: bold;" class="btn btn-primary" (click)="openModal(order.id)">الحاله</a></td>
-                    <td><a style="font-size:10px;font-weight: bold;" class ="btn btn-primary">اسناد</a> </td>
+                    <!-- <td><a style="font-size:10px;font-weight: bold;" class="btn btn-primary" (click)="openModal(order.id)">الحاله</a></td>
+                    <td><a style="font-size:10px;font-weight: bold;" class ="btn btn-primary">اسناد</a> </td> -->
                     <td><a style="color: #d90429;font-size: larger;" (click)="deleteOrder(order.id)"><i class="fa-solid fa-trash-can"></i></a></td>
                     <td><a style="color: #00b4d8;font-size: larger;"><i class="fa-solid fa-print"></i></a></td>
                   </tr>

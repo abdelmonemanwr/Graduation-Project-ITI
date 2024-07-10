@@ -3,6 +3,7 @@ import { OrderStatus } from './../../../Models/Enums';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule ,FormBuilder,Validators} from '@angular/forms';
 import { OrderService } from '../../order/order.service';
+import {ActivatedRoute} from '@angular/router'
 
 
 @Component({
@@ -13,6 +14,7 @@ import { OrderService } from '../../order/order.service';
 export class AllOrdersComponent implements OnInit{
 
   orderStatus= OrderStatus 
+  
   orders : Order[] = [] 
 
   orderId : number = 0
@@ -25,7 +27,8 @@ export class AllOrdersComponent implements OnInit{
   
   constructor(
     private orderService:OrderService,
-    private formBuilder:FormBuilder
+    private formBuilder:FormBuilder,
+    private route: ActivatedRoute
   ) {
     // this.orderStatus = OrderStatus
     
@@ -37,7 +40,15 @@ export class AllOrdersComponent implements OnInit{
     })
     
 
-    this.getAll()
+    this.route.paramMap.subscribe(params => {
+      const key = params.get('id');
+      if (key) {
+        console.log("pram map was called",key);
+        this.filterOrder(key as OrderStatus);  // Cast to OrderStatus if necessary
+      } else {
+        this.getAll();
+      }
+    });
   }
 
 
