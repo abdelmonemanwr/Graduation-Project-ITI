@@ -55,27 +55,12 @@
       </tr>
     </tbody>
   </table>
-  <nav *ngIf="true" aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-      <li class="page-item">
-        <a class="page-link text-primary" (click)="onPagePrevious()" aria-label="Previous">
-          <span aria-hidden="true">&laquo;</span>
-        </a>
-      </li>
-      <li class="page-item">
-        <a class="page-link text-primary" (click)="onPageReset()">{{ page }}</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link text-primary" (click)="onPageNext()" aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
+}
+  <app-pagination
+              [totalItems]="totalItems"
+              [itemsPerPage]="pageSize"
+              [currentPage]="pageNumber"
+              (pageChange)="onPageChange($event)">
+          </app-pagination>
+
 </div>
-<div class="text-center">
-  <button class="btn btn-primary rounded-icon-btn text-center p-1" (click)="openMerchantFormModal()">
-    <i class="fas fa-plus "></i>
-</button>
-</div>
-<!-- <app-merchant-modal #merchantModal></app-merchant-modal> -->

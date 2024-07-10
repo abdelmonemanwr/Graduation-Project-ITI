@@ -90,19 +90,20 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  // private redirectUser(role: string) {
-  //   if (role === 'admin'){
-  //     this.router.navigate(['/admin-dashboard']);
-  //   } else if (role === 'employee') {
-  //     this.router.navigate(['/employee-dashboard']);
-  //   } else if (role === 'merchant') {
-  //     this.router.navigate(['/merchant-dashboard']);
-  //   } else if (role === 'supportive') {
-  //     this.router.navigate(['/supportive-dashboard']);
-  //   }
-  // }
-
-  forgetPassword(){
-
+  private redirectUser(role: string) {
+    if (role === 'admin'){
+      this.router.navigate(['/admin-dashboard']);
+    } else if (role === 'employee') {
+      this.router.navigate(['/employee-dashboard']);
+    } else if (role === 'merchant') {
+      this.router.navigate(['/merchant']);
+    // } else if (role === 'supportive') {
+    //   this.router.navigate(['/supportive-dashboard']);
+    // }
+    }
   }
+
+  // forgetPassword(){
+
+  // }
 }

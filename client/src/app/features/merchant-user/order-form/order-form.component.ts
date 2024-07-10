@@ -3,7 +3,7 @@ import { ShippingTypeService } from './../../../services/shippingtype.service';
 import { CityService } from './../../city/city.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,ReactiveFormsModule } from '@angular/forms';
-import { OrderService } from '../order.service';
+import { OrderService } from '../../order/order.service';
 import { ActivatedRoute, Router} from '@angular/router';
 import { NgModule } from '@angular/core';
 import { Order } from '../../../Models/Order';
@@ -212,6 +212,7 @@ export class OrderFormComponent implements OnInit {
       orderData.productOrders = this.products;
       orderData.orderCost = this.calculateOrderCost()
       orderData.totalWeight = this.calculateTotalWeight()
+      
       console.log(orderData)
       console.log(this.products)
       if (this.orderId) {
@@ -220,7 +221,7 @@ export class OrderFormComponent implements OnInit {
         this.orderService.editItem(this.orderId, orderData).subscribe( {
           next:(data:any)=>{
             console.log(data)
-            this.router.navigate(['order/all'])
+            this.router.navigate(['merchant/order/all'])
           },
           error:(data:any)=>{
             console.log(data)
@@ -228,12 +229,12 @@ export class OrderFormComponent implements OnInit {
       });
       } else {
         orderData.id= 0
-        orderData.orderStatus = this.OrderStatus.New
+        orderData.orderStatus = undefined
         orderData.representative_Id=null
-        this.orderService.postOrder(orderData).subscribe({
+        this.orderService.addItem(orderData).subscribe({
             next:(data:any)=>{
               console.log(data)
-              this.router.navigate(['order/all'])
+              this.router.navigate(['/merchant/order/all'])
 
             },
             error:(data:any)=>{
@@ -253,6 +254,7 @@ export class OrderFormComponent implements OnInit {
      this.authService.getUserDetails().subscribe({
       next:(data:any)=>{
         this.orderForm.get('merchant_Id')?.setValue(data.id)
+        console.log("merchant",this.orderForm.get('merchant_Id')?.value)
       }}
     ) 
   }

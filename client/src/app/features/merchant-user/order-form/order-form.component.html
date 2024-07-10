@@ -1,0 +1,228 @@
+<div class="container py-5">
+    <div class="row">
+      <div class="col-12">
+        <div class="tabs d-flex flex-wrap flex-column align-items-center justify-content-center" dir="rtl">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs d-flex align-items-center justify-content-center border-0" role="tablist">
+            <li class="nav-item pb-2">
+              <a class="nav-link labeltext border-0 active" role="tab" [ngClass]="{'active':selectedTab == 'customer'}" (click)="selectTab('customer')">بيانات العميل</a>
+            </li>
+            <li class="nav-item pb-2">
+              <a class="nav-link labeltext border-0" data-toggle="tab" role="tab" [ngClass]="{'active':selectedTab == 'order'}" (click)="selectTab('order')">بيانات الطلب</a>
+            </li>
+            <li class="nav-item pb-2">
+              <a class="nav-link labeltext border-0" data-toggle="tab" role="tab" [ngClass]="{'active':selectedTab == 'products'}" (click)="selectTab('products')">المنتجات</a>
+            </li>
+            <li class="nav-item pb-2">
+              <a class="nav-link labeltext border-0" data-toggle="tab" role="tab" [ngClass]="{'active':selectedTab == 'notes'}" (click)="selectTab('notes')">الملاحظات</a>
+            </li>
+          </ul>
+  
+          <div class="d-flex tab-content align-items-center pt-4">
+            <form [formGroup]="orderForm" (ngSubmit)="handleSubmit()">
+              <div *ngIf="selectedTab == 'customer'" class="tab-pane fade show active" id="description" role="tabpanel">
+                <div class="how-pos2">
+                  <div class="d-flex justify-content-center">
+                    <div class="ps-5">
+                      <label for="customerName" class="form-label labeltext">اسم العميل</label>
+                      <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="customerName" formControlName="customerName">
+                      </div>
+                    </div>
+                    <div class="ps-5">
+                      <label for="customerEmail" class="form-label labeltext">البريد الالكتروني</label>
+                      <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="customerEmail" formControlName="customerEmail">
+                      </div>
+                    </div>
+                  </div>
+  
+                  <div class="d-flex">
+                    <div class="ps-5">
+                      <label for="customerPhone1" class="form-label labeltext">رقم الهاتف الاول</label>
+                      <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="customerPhone1" formControlName="customerPhone1">
+                      </div>
+                    </div>
+                    <div class="ps-5">
+                      <label for="customerPhone2" class="form-label labeltext">رقم الهاتف الثاني</label>
+                      <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="customerPhone2" formControlName="customerPhone2">
+                      </div>
+                    </div>
+                  </div>
+  
+                  <div class="d-flex justify-content-between">
+                    <div class="ps-5 w-100" style="max-width: 50%;">
+                      <label for="governate_Id" class="form-label labeltext">المحافظة</label>
+                      <div class="w-100">
+                        <select  class="form-select w-100" formControlName="governate_Id">
+                          <option *ngFor="let governate of governates" value={{governate.id}}>{{governate.name}}</option>
+                        </select>
+                      </div>
+                    </div>
+  
+                    <div class="ps-5 w-100" style="max-width: 50%;">
+                      <label for="city_Id" class="form-label labeltext">المدينه</label>
+                      <div class="w-100">
+                        <select class="form-select w-100" formControlName="city_Id">
+                          <option *ngFor="let city of cities" value={{city.id}} >{{city.name}}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+  
+                  <div class="d-flex align-items-center">
+                    <div class="ps-5 pt-2">
+                      <label for="villageOrStreet" class="form-label labeltext">الشارع</label>
+                      <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="villageOrStreet" formControlName="villageOrStreet">
+                      </div>
+                    </div>
+  
+                    <div class="d-flex justify-content-center align-items-center pt-4 ps-4">
+                        <label for="basic-url" class="form-label mb-0 labeltext ps-2">التوصيل لقرية</label>
+                        <div class="form-check form-switch d-flex justify-content-center ">
+                            <input class="form-check-input fs-5" type="checkbox" role="switch" id="flexSwitchCheckDefault" formControlName="villageDeliver">
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <div *ngIf="selectedTab == 'order'" class="tab-pane fade show active" id="order" role="tabpanel">
+                <div class="d-flex">
+                  <div class="ps-5">
+                    <label for="orderCost" class="form-label labeltext">نوع الطلب</label>
+                    <div class="input-group mb-3">
+                        <select class="form-select w-100" formControlName="orderType">
+                            <option *ngFor="let key of getEnumKeys(orderTypes)" [value]="key" selected>{{ orderTypes[key] }}</option>
+                            <!-- <option  [value]="orderTypes.Normal" >استلام من الفرع</option>
+                            <option  [value]="orderTypes.PickUp" >استلام من التاجر</option> -->
+                        </select>
+                    </div>
+                  </div>
+  
+                  <div class="ps-5">
+                    <label for="totalWeight" class="form-label labeltext">وسيلة الدفع</label>
+                    <div class="input-group mb-3">
+                        <select class="form-select w-100" formControlName="paymentType">
+                            <option *ngFor="let key of getEnumKeys(paymetTypes)" [value]="key" >{{paymetTypes[key]}}</option>
+                        </select>                   
+                     </div>
+                  </div>
+                </div>
+  
+                <div class="d-flex ">
+                  <div class="ps-5">
+                    <label for="shippingCost" class="form-label labeltext">نوع الشحن</label>
+                    <div class="input-group mb-3">
+                        <select class="form-select w-100" formControlName="shipping_Id">
+                            <option *ngFor="let type of shippingTypes" [value]="type.id">{{type.name}}</option>
+                        </select>                        
+                        <!-- <input type="text" class="form-control" id="shippingCost" formControlName="shippingCost"> -->
+                    </div>
+                  </div>
+  
+                  <div class="ps-5 w-50">
+                    <label for="totalCost" class="form-label labeltext">الفرع</label>
+                    <div class="input-group mb-3">
+                        <select class="form-select w-100" formControlName="branch_Id">
+                            <option *ngFor="let branch of branches" [value]="branch.id">{{branch.name}}</option>
+                        </select>          
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <div *ngIf="selectedTab == 'products'" class="tab-content fade show active w-100" id="reviews" role="tabpanel">
+                <div class="row w-100">
+                  <div class="col-12 d-flex justify-content-between align-items-center">
+                    <div>
+                      <h1 class="">قائمة المنتجات</h1>
+                    </div>
+                    <div>
+                      <button class="btn btn-secondary" type="button" (click)="openModal()">اضافة منتج</button>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <table class="table my-2">
+                      <thead>
+                        <tr class="table-header">
+                          <th scope="col" class="text-center">#</th>
+                          <th scope="col" class="text-center">المنتج</th>
+                          <th scope="col" class="text-center">السعر</th>
+                          <th scope="col" class="text-center">الكمية</th>
+                          <th scope="col" class="text-center">الوزن</th>
+                          <th scope="col" class="text-center">الاعدادات</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let product of products let i = index">
+                          <td class="text-center fs-5">{{ i+1 }}</td>
+                          <td class="text-center fs-5">{{ product.name }}</td>
+                          <td class="text-center fs-5">{{ product.unitPrice}}</td>
+                          <td class="text-center fs-5">{{ product.quantity }}</td>
+                          <td class="text-center fs-5">{{ product.unitWeight }}</td>
+                          <td class="text-center">
+                            <div class="d-flex justify-content-center">
+                              <i class="bi bi-trash3-fill text-danger me-2 fs-4" (click)="deleteProduct(product.name)"></i>
+                              <i class="mx-1 fs-5 text-info bi bi-pencil-square fs-4" (click)="openModal(product,i)"></i>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+  
+              <div *ngIf="selectedTab == 'notes'" class="tab-pane fade show active" id="notes" role="tabpanel">
+                <div class="ps-5 w-100" >
+                  <label for="notes" class="form-label labeltext">ملاحظات</label>
+                  <textarea class="form-control w-100" id="notes" formControlName="notes" rows="4"></textarea>
+                </div>
+              </div>
+  
+              <div class="d-flex justify-content-center py-4">
+                <button type="submit" class="btn btn-primary">اضافة</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Product Modal -->
+  <div class="modal" [ngClass]="{'d-block': modalOpen}" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header justify-content-end align-items-center">
+          <h3 class="text-end text-center mb-0 fs-4" dir="rtl">{{ editFlag ? "تعديل منتج" : "اضافة منتج" }}</h3>
+          <button type="button" class="btn-close ms-0" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+        </div>
+        <form (ngSubmit)="addOrEditProduct()" [formGroup] ="productForm">
+          <div class="modal-body d-flex align-items-center" dir="rtl">
+            <div class="ps-2 w-100">
+              <input type="text" class="form-control" placeholder="اسم المنتج" aria-label="ProductName"  name="name" formControlName="name" required>
+            </div>
+            <div class="ps-2 w-100">
+              <input type="number" class="form-control" placeholder="السعر" aria-label="Weight"  name="unitPrice" formControlName="unitPrice" required>
+            </div>
+            <div class="ps-2 w-100">
+              <input type="number" class="form-control" placeholder="الكمية" aria-label="Quantity"  name="quantity" formControlName="quantity" required>
+            </div>
+            <div class="ps-2 w-100">
+              <input type="number" class="form-control" placeholder="الوزن" aria-label="Price"  name="unitWeight" formControlName="unitWeight" required>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">اغلاق</button>
+            <button type="submit" class="btn btn-primary">{{ editFlag ? "تعديل" : "اضافة" }}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- [(ngModel)]="newProduct.name" -->

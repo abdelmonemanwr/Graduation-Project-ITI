@@ -42,10 +42,6 @@ export class AddPrivilegeComponent implements OnInit {
     });
   }
 
-  get privilegesFormArray() {
-    return this.groupForm.get('privileges') as FormArray;
-  }
-
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.groupId = params.get('id');
@@ -55,7 +51,6 @@ export class AddPrivilegeComponent implements OnInit {
           next: (groupDTO: GroupDTO) => {
             const groupNameControl = this.groupForm.get('groupName');
             groupNameControl?.setValue(groupDTO.name);
-            // store the data in local variables
             this.groupNameInEditMode = groupDTO.name;
             this.userPrivileges = groupDTO.groupPrivileges;
             this.privilegeService.getPrivileges().subscribe({
@@ -93,10 +88,7 @@ export class AddPrivilegeComponent implements OnInit {
           groupNameControl.setErrors(null);
         }
       }
-        }
-      }
     });
-
   }
 
   private setPrivileges(privileges: PrivilegeDTO[], userPrivileges: GroupPrivilegeDTO[]) {
@@ -109,39 +101,15 @@ export class AddPrivilegeComponent implements OnInit {
         View: [curUserPrivilege ? curUserPrivilege.view : false],
         Delete: [curUserPrivilege ? curUserPrivilege.delete : false]
       });
-          snackBarRef.onAction().subscribe(() => {
-            snackBarRef.dismiss();
     });
-          const groupNameControl = this.groupForm.get('groupName');
-          groupNameControl?.setErrors({ groupExists: true });
-        }
-      },
-      error: (error) => {
-        console.error('Error checking group name:', error);
-      }
-    });
-  }
-
-  private setPrivileges(privileges: PrivilegeDTO[], userPrivileges: GroupPrivilegeDTO[]) {
-    const privilegeFGs = privileges.map(privilege => this.fb.group({
-      Privelege_Id: [privilege.id],
-      Add: [userPrivileges.find(gp => gp.Privelege_Id === privilege.id)?.Add || false],
-      Update: [userPrivileges.find(gp => gp.Privelege_Id === privilege.id)?.Update || false],
-      View: [userPrivileges.find(gp => gp.Privelege_Id === privilege.id)?.View || false],
-      Delete: [userPrivileges.find(gp => gp.Privelege_Id === privilege.id)?.Delete || false]
-    }));
     const privilegeFormArray = this.fb.array(privilegeFGs);
     this.groupForm.setControl('privileges', privilegeFormArray);
-    console.log(`user privileges xyz: ${JSON.stringify(userPrivileges)}`);
-    console.log(`privileges xyz: ${JSON.stringify(privilegeFormArray.value)}`);
   }
 
   getSelectedPrivileges(): GroupPrivilegeDTO[] {
     return this.privilegesFormArray.controls
       .filter(control => control.value.Add || control.value.Update || control.value.View || control.value.Delete)
       .map(control => control.value);
-    //console.log(`selected privileges: ${JSON.stringify(chosenPrivileges)}`);
-    return chosenPrivileges;
   }
 
   onSubmit() {
@@ -156,7 +124,6 @@ export class AddPrivilegeComponent implements OnInit {
       groupPrivileges: selectedPrivileges
     };
 
-    // Update existing group
     if (this.groupId) {
       this.groupService.updateGroup(this.groupId, newGroup).subscribe({
         next: () => this.handleSuccess('تم تحديث المجموعة بنجاح!'),
@@ -217,6 +184,5 @@ export class AddPrivilegeComponent implements OnInit {
         catchError(() => of(null))
       );
     }
-    });
   }
 }

@@ -12,13 +12,16 @@ import { PrivilegeDTO } from '../../features/admin/interfaces/privilege-dto';
 })
 export class SidebarComponent implements OnInit {
   dropdownOpen = false;
+  role : string | null = ''
   privileges: GroupPrivilegeDTO[] | null = null;
 
   constructor(private authService: AuthService, private privilegeService: PrivilegeService) {}
 
   ngOnInit(): void {
-    this.privileges = this.authService.getPrivileges();
-    console.log(this.privileges)
+    // this.privileges = this.authService.getPrivileges();
+    // console.log(this.privileges)
+
+    this.role = localStorage.getItem('role') 
   }
   
   hasPrivilege(privilegeName: string, permission: 'add' | 'delete' | 'update' | 'view'): boolean {
@@ -48,7 +51,7 @@ export class SidebarComponent implements OnInit {
     //   }
     // );
 
-    console.log(this.privileges?.forEach(cur=>console.log(cur)))
-    return privelegeFlag ;
+    // console.log(this.privileges?.forEach(cur=>console.log(cur)))
+    return true;
   }
 }

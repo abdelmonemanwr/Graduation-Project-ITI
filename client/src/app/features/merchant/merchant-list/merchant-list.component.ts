@@ -53,9 +53,9 @@ export class MerchantListComponent implements OnInit {
 
   
   merchants: Merchant[] = [];
-  page = 1;
+  pageNumber = 1;
   pageSize = 5;
-  totalMerchants = 0;
+  totalItems = 0;
   
   isLoading = true;
   constructor(private merchantService: MerchantService,public dialog: MatDialog,private modalService: NgbModal ) {

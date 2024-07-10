@@ -42,7 +42,7 @@ namespace ShippingSystem.Services
 
         public async Task<IEnumerable<OrderDto>> GetMerchantOrdersAsync (string merchantId)
         {
-            var orders = await unit.OrderRepository.GetOrdersByCustomerNameAsync(merchantId);
+            var orders = await unit.OrderRepository.GetMerchantOrdersAsync(merchantId);
             return mapper.Map<IEnumerable<OrderDto>>(orders);
         }
 
@@ -59,6 +59,7 @@ namespace ShippingSystem.Services
             var Order = mapper.Map<Order>(OrderDto);
             var result = await unit.OrderRepository.CalculateTotalCost(Order);
             result.OrderDate = DateTime.Now;
+            result.OrderStatus = OrderStatus.New;
             if(result != null)
             {
                 await unit.OrderRepository.Add(result);
@@ -75,11 +76,10 @@ namespace ShippingSystem.Services
             mapper.Map(OrderDto,order);
             order  = await unit.OrderRepository.CalculateTotalCost(order);
             order.OrderDate = DateTime.Now;
+            //order.OrderStatus =
             if (order != null)
-        {
-            var order = mapper.Map<Order>(OrderDto);
-
-            await unit.OrderRepository.Update(order);
+            {
+                await unit.OrderRepository.Update(order);
                 await unit.OrderRepository.Save();
                 return true;
             }
