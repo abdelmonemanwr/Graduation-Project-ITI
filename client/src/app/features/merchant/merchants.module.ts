@@ -27,8 +27,6 @@ import { SharedModule } from '../../shared/shared.module';
     MatDialogModule,
     MatDialogModule,
     SharedModule
-
-
   ],
   providers: [MerchantService],
   exports: [

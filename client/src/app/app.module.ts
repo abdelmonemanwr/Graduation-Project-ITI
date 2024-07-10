@@ -15,7 +15,7 @@ import { AdminModule } from './features/admin/admin.module';
   declarations: [AppComponent],
   imports: [
     BrowserModule, AppRoutingModule, HttpClientModule, AdminModule,
-    FormsModule, ReactiveFormsModule, AuthModule
+    FormsModule, ReactiveFormsModule, AuthModule,SharedModule
   ],
   providers: [
   
