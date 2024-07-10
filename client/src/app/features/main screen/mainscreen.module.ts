@@ -9,6 +9,8 @@ import { MainscreenroutingModule } from './mainscreenrouting.module';
   ],
   imports: [
     CommonModule,MainscreenroutingModule,
-  ]
+  ],
+
+  exports:[MainScreenComponent]
 })
 export class mainscreenModule { }

@@ -1,0 +1,55 @@
+/* .main-screen {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+  }
+  
+  .card {
+    display: flex;
+     flex-direction: column;  
+    align-items: center;
+    justify-content: center;  
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 20px; 
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: calc(25% - 20px); 
+    height: calc(25% - 20px);
+    box-sizing: border-box;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .content {
+    display: flex;
+    align-items: center; 
+  }
+  
+  .square {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-right: 10px; 
+  }
+  
+  .text {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+   */

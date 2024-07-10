@@ -7,24 +7,20 @@
 
         </div>
       </div>
-        
         <div class="col-12">
        <div class="d-flex justify-content-between align-items-center">
             <form class="d-flex justify-content-between form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2  me-4" type="search" placeholder="بحث عن محافظة" aria-label="Search" [(ngModel)] = "governateName" name="governateName">
                 <button class="btn btn-secondary my-2 my-sm-0" type="button" (click)="search()">Search</button>
             </form>
-    
-    
-            <div>
+            <!-- <div>
                 <select class="form-select" aria-label="Default select example">
                     <option value = "0" selected>All</option>
                     <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="15">15</option>
                   </select>
-            </div>
-           
+            </div> -->
         </div>
         
         </div>
@@ -64,9 +60,9 @@
         [currentPage]="pageNumber"
         (pageChange)="onPageChange($event)">
         </app-pagination>
-        </div> -->
+        </div>
 
-        <div class="row justify-content-center my-3 ">
+        <!-- <div class="row justify-content-center my-3 ">
           <div class="col-12">
               <table class="table text-center my-4" id="tableId">
                   <thead class="table-primary">
@@ -103,7 +99,7 @@
                   (pageChange)="onPageChange($event)">
               </app-pagination>
           </div>
-      </div>
+      </div> -->
       
         <div class="modal"  [ngClass]="{'d-block' :modalOpen}" tab-index="-1">
             <div class="modal-dialog">
@@ -133,11 +129,11 @@
 
 
 
-    </div>
+</div>
 
 
 
    
-</div>
+<!-- </div> -->
 
 

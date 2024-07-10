@@ -97,7 +97,7 @@ export class MerchantFormComponent implements OnInit {
       fullName: ['', Validators.required],
       email: ['', [Validators.required, emailValidator]],
       phoneNumber: ['', Validators.required],
-      password: ['', [Validators.required,passwordValidator]],
+      password: ['', [Validators.required]],
       userName: ['', [Validators.required,noSpacesValidator]],
       address: ['', Validators.required],
       governate: ['', Validators.required],

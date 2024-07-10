@@ -18,5 +18,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatSelectModule,
     MatCheckboxModule,
   ],
+
+  exports:[BranchTableComponent]
 })
 export class BranchModule {}

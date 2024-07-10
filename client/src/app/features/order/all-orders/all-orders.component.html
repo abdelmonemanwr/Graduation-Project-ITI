@@ -71,7 +71,6 @@
                     <th class="text-left"> تعديل الطلب</th>
                     <th class="text-left">تغير الحاله </th>
                     <th class="text-left"> اسناد </th>
-  
                     <th class="text-left">حذف</th>
   
                     <th class="text-left"style="color: #ccc ;font-size: larger;"><i class="fa-solid fa-print"></i></th>
@@ -81,7 +80,7 @@
                 <tbody class="text-center">
                   <tr *ngFor="let order of orders;let i = index">
                     <td>{{i+1}}</td>
-                    <td>{{order.orderDate}}</td>
+                    <td>{{order.orderDate | date: 'dd/MM/yyyy'}}</td>
                     <td> {{order.customerName}}</td>
                     <td>{{order.governateName}}</td>
                     <td>{{order.cityName}}</td>
@@ -130,8 +129,8 @@
             <div class="modal-body d-flex align-items-center" dir="rtl">
               <div class="input-group mb-3">
                 <select class="form-select w-100" (change)="showStatus($event)" formControlName ="status">
-                    <option  [value]="orderStatus.RejectedFromEmployee" >رفض</option>
-                    <option  [value]="orderStatus.Pending" >قيد الانتظار</option>
+                    <option  value='RejectedFromEmployee' >رفض</option>
+                    <option  value='Pending' >قيد الانتظار</option>
                 </select>
             </div>
           </div>
@@ -143,7 +142,31 @@
         </div>
       </div>
     </div>
-
     
+    <div class="modal"  [ngClass]="{'d-block' :modalOpen}" tab-index="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header justify-content-end align-items-center">
+            <h3 class="text-end text-center mb-0 fs-4" dir="rtl" >{{"تغير الحالة"}}</h3>
+            <button type="button " class="btn-close ms-0" data-bs-dismiss="modal" aria-label="Close" (click) = "closeModal()"></button>
+          </div>
+
+          <form (submit)="changeStatus()" [formGroup]="statusForm">
+            <div class="modal-body d-flex align-items-center" dir="rtl">
+              <div class="input-group mb-3">
+                <select class="form-select w-100" (change)="showStatus($event)" formControlName ="status">
+                    <option  value='RejectedFromEmployee' >رفض</option>
+                    <option  value='Pending' >قيد الانتظار</option>
+                </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click) = "closeModal()">اغلاق</button>
+            <button type="submit" class="btn btn-primary"  >تغيير</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>      
   </div>
   

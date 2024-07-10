@@ -1,8 +1,11 @@
-import { OrderService } from './../order.service';
-import { Order } from './../../../Models/Order';
-import { OrderStatus } from './../../../Models/Enums';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule ,FormBuilder,Validators} from '@angular/forms';
+import { OrderService } from '../../features/order/order.service';
+import { Order } from '../../Models/Order';
+import { ActivatedRoute, Route, Router } from '@angular/router';
+import { OrderStatus } from '../../Models/Enums';
+import { AuthService } from '../../features/auth/auth.service';
+
 
 @Component({
   selector: 'app-all-orders',
@@ -20,14 +23,17 @@ export class AllOrdersComponent implements OnInit{
 
   statusForm!:FormGroup
 
+  representative_id : string = ''
+
   status : any 
 
-  
   constructor(
     private orderService:OrderService,
-    private formBuilder:FormBuilder
+    private formBuilder:FormBuilder,
+    private route:ActivatedRoute,
+    private auth: AuthService,
+    private router:Router
   ) {
-    // this.orderStatus = OrderStatus
     
   }
   ngOnInit(): void {
@@ -81,20 +87,14 @@ export class AllOrdersComponent implements OnInit{
 
   showStatus(event:Event){
     const target = event.target as HTMLSelectElement;
-    const selectedValue = target.value;
-    this.status = selectedValue
-    console.log(this.status)
-    console.log("change")
+    this.status = target.value;
   }
 
   changeStatus(){
-
-    console.log(this.orderId,this.statusForm.get('status')?.value)
-    console.log(this.statusForm.value)
-    this.orderService.changeStatus(this.orderId,this.status).subscribe({
+     this.orderService.changeStatus(this.orderId,this.status).subscribe({
       next:(data:any)=>{
-        console.log(data)
         this.closeModal()
+        this.router.navigate(['/representative'])
       },
       error:(error)=>{
         console.log(error)
@@ -104,12 +104,28 @@ export class AllOrdersComponent implements OnInit{
   }
 
   getAll(){
-    this.orderService.getOrders(1,10).subscribe({
-      next:(data:Order[])=>{
-        this.orders = data
-        console.log(data)
-      }
-    })
+
+    this.auth.getUserDetails().subscribe({
+      next:(data:any)=>{
+          this.representative_id = data.id
+          this.orderService.getRepresentativeOrders(this.representative_id).subscribe({
+            next:(data:Order[])=>{
+              this.orders = data
+              this.orders.forEach(order => {
+                order.orderDate = new Date(order.orderDate);
+              });
+              this.route.paramMap.subscribe(params => {
+              const id = params.get('id');
+                if (id) {
+                  this.orders =  this.orders.filter(o=>o.orderStatus == id)
+                  console.log(this.orders)
+                }
+              });
+            }
+      
+          })
+      }}
+    )
   }
 
 }

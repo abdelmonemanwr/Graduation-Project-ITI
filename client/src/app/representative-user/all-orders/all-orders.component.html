@@ -1,0 +1,91 @@
+<div class="container-fluid p-4">
+    <div class="formbg p-4 mt-3">
+      <div class="tab-content" style="direction: rtl;">
+        <!-- Tab 2 Content -->
+        <div class="" id="pills-tab1" role="tabpanel" aria-labelledby="pills-tab1-tab">
+          <!-- Content for Tab 2 -->
+          <div class="d-flex justify-content-between mb-3">
+            <input type="search" style="width: 20%;" class="form-control" placeholder="ابحث...." />
+          </div>
+          <div class="row justify-content-center my-3">
+            <div class="col-12">
+              <table class="table text-center my-4" id="tableId">
+                <thead class="table-primary">
+                  <tr  class="text-center">
+                    <th class="text-left">#</th>
+                    <th class="text-left"> التاريخ</th>
+                    <th class="text-left">بيانات العميل</th>
+                    <th class="text-left">المحافظة</th>
+                    <th class="text-left">المدينة</th>
+                    <th class="text-left">تكلفة الطلب</th>
+                    <th class="text-left">تغير الحاله </th>
+                  </tr>
+                </thead>
+  
+                <tbody class="text-center">
+                  <tr *ngFor="let order of orders;let i = index">
+                    <td>{{i+1}}</td>
+                    <td>{{order.orderDate | date: 'dd/MM/yyyy'}}</td>
+                    <td> {{order.customerName}}</td>
+                    <td>{{order.governateName}}</td>
+                    <td>{{order.cityName}}</td>
+                    <td>{{order.totalCost}}</td>
+                    <td><a style="font-size:10px;font-weight: bold;" class="btn btn-primary" (click)="openModal(order.id)">الحاله</a></td>
+                  </tr>
+                  <!-- Additional table rows -->
+                </tbody>
+              </table>
+              <!-- Pagination -->
+              <nav>
+                <ul class="pagination justify-content-end">
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                  </li>
+                  <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal"  [ngClass]="{'d-block' :modalOpen}" tab-index="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header justify-content-end align-items-center">
+            <h3 class="text-end text-center mb-0 fs-4" dir="rtl" >{{"تغير الحالة"}}</h3>
+            <button type="button " class="btn-close ms-0" data-bs-dismiss="modal" aria-label="Close" (click) = "closeModal()"></button>
+          </div>
+
+          <form (submit)="changeStatus()" [formGroup]="statusForm">
+            <div class="modal-body d-flex align-items-center" dir="rtl">
+              <div class="input-group mb-3">
+                <select class="form-select w-100" (change)="showStatus($event)" formControlName ="status">
+                    <option  value='DeliveredToCustomer' >تم التسليم</option>
+                    <option  value='UnReachable' >لا يمكن الوصول</option>
+                    <option  value='Postponed' >تم التاجيل</option>
+                    <option  value='DeliveredPartially' >تم التسليم جزئيا</option> 
+                    <option  value='CustomerCanceled' >تم الالغاء من قبل المستلم</option>
+                    <option  value='RejectedWithPaying' >تم الرفض مع الدفع</option>
+                    <option value = 'RejectedWithPartialPaying'>رفض مع سداد جزء</option> 
+                </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click) = "closeModal()">اغلاق</button>
+            <button type="submit" class="btn btn-primary"  >تغيير</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  

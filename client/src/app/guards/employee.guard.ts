@@ -1,3 +1,4 @@
+import { Employee } from './../Models/Employee';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -7,7 +8,7 @@ import { AuthService } from '../features/auth/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class MerchantGuard implements CanActivate {
+export class EmployeeGuard implements CanActivate {
   constructor(
     private authService:AuthService,
     private router:Router
@@ -16,9 +17,9 @@ export class MerchantGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       const role = localStorage.getItem('role')
-      if (role=='merchant')
+      if (role == 'admin')
       {
-        console.log('merchant login succeeded')
+        console.log('admin login succeeded')
         return true;
       }
       this.router.navigate(['/login']);

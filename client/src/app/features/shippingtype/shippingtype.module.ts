@@ -18,5 +18,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatSelectModule,
     MatCheckboxModule,
   ],
+  exports:[]
 })
 export class ShippingTypeModule {}

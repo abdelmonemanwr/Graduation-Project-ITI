@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { WeightComponent } from './weight/weight.component';
 import { WeightRoutingModule } from './weight-routing.module';
 import { WeightService } from './weight.service';
@@ -10,7 +10,7 @@ import { WeightService } from './weight.service';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    WeightRoutingModule
+    WeightRoutingModule,
   ],
   providers: [WeightService]
 })

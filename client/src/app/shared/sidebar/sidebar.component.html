@@ -92,14 +92,14 @@
     <img src="../../../assets/logo.logo.png" alt="Logo" class="sidebar-logo" width="120">
   </div>
 
-  <!-- <ul *ngIf="role == 'admin'"  class="nav flex-column me-5  align-items-end">
+  <ul *ngIf="role == 'admin'"  class="nav flex-column me-5  align-items-end">
     <li class="nav-item">
-      <a class="nav-link" routerLink='/mainscreen'>
+      <a class="nav-link" routerLink='/employee'>
         الرئيسية <i class="fas fa-home"></i>
       </a>
     </li>
     <li class="nav-item" *ngIf="hasPrivilege('admin', 'add')">
-      <a class="nav-link" routerLink="/admin/addGroup">
+      <a class="nav-link" routerLink="employee/myGroups">
         الصلاحيات <i class="fas fa-shield-alt"></i>
       </a>
     </li>
@@ -110,8 +110,8 @@
       <ul class="sublist user-sublist" aria-labelledby="navbarDropdown">
         <li *ngIf="hasPrivilege('Employee', 'view')"><a class="dropdown-item" routerLink="/employee/all"> الموظفين</a>
         </li>
-        <li *ngIf="hasPrivilege('Merchant', 'view')"><a class="dropdown-item" routerLink="/merchants">التجار </a></li>
-        <li *ngIf="hasPrivilege('Representative', 'view')"><a class="dropdown-item" routerLink="/representative">
+        <li *ngIf="hasPrivilege('Merchant', 'view')"><a class="dropdown-item" routerLink="/employee/merchant/all">التجار </a></li>
+        <li *ngIf="hasPrivilege('Representative', 'view')"><a class="dropdown-item" routerLink="/employee/representative/all">
             المناديب </a></li>
       </ul>
     </li>
@@ -121,14 +121,14 @@
         المناطق <i class="fas fa-map-marked-alt"></i>
       </a>
       <ul class="sublist user-sublist" aria-labelledby="navbarDropdown">
-        <li *ngIf="hasPrivilege('Governate', 'view')"><a class="dropdown-item" routerLink="/governate"> المحافظات</a>
+        <li *ngIf="hasPrivilege('Governate', 'view')"><a class="dropdown-item" routerLink="/employee/governate"> المحافظات</a>
         </li>
-        <li *ngIf="hasPrivilege('City', 'view')"><a class="dropdown-item" routerLink="/city">المدن </a></li>
+        <li *ngIf="hasPrivilege('City', 'view')"><a class="dropdown-item" routerLink="/employee/city">المدن </a></li>
       </ul>
     </li>
 
     <li class="nav-item" *ngIf="hasPrivilege('Branch', 'view')">
-      <a class="nav-link" routerLink="/branch">
+      <a class="nav-link" routerLink="/employee/branch">
         الفروع <i class="fas fa-code-branch"></i>
       </a>
     </li>
@@ -138,7 +138,7 @@
         الاعدادات <i class="fas fa-cog"></i>
       </a>
       <ul class="sublist user-sublist" aria-labelledby="navbarDropdown">
-        <li *ngIf="hasPrivilege('Weight', 'view')"><a class="dropdown-item" routerLink="weight"> اعدادات الوزن</a></li>
+        <li *ngIf="hasPrivilege('Weight', 'view')"><a class="dropdown-item" routerLink="/weight"> اعدادات الوزن</a></li>
         <li *ngIf="hasPrivilege('VillageCost', 'view')"><a class="dropdown-item" routerLink="village-cost"> التوصيل
             لقريه </a></li>
         <li *ngIf="hasPrivilege('ShippingType', 'view')"><a class="dropdown-item" routerLink="shippingtype"> انواع الشحن
@@ -147,50 +147,7 @@
     </li>
 
     <li class="nav-item">
-      <a class="nav-link toggle" id="navbarDropdown" role="button">
-        عرض الطلبات <i class="fas fa-shopping-cart"></i>
-      </a>
-      <ul class="sublist user-sublist" aria-labelledby="navbarDropdown">
-        <li *ngIf="hasPrivilege('OrderAdd', 'view')"><a class="dropdown-item" routerLink="/order/add"> جديد </a></li>
-        <li *ngIf="hasPrivilege('VillageCost', 'view')"><a class="dropdown-item" routerLink="/village-cost"> قيد
-            الانتظار </a></li>
-        <li *ngIf="hasPrivilege('ShippingType', 'view')"><a class="dropdown-item" routerLink="/shippingtype"> تم التسليم
-            للمندوب </a></li>
-        <li *ngIf="hasPrivilege('ShippingType', 'view')"><a class="dropdown-item" routerLink="/shippingtype"> لا يمكن
-            الوصول </a></li>
-        <li *ngIf="hasPrivilege('ShippingType', 'view')"><a class="dropdown-item" routerLink="/shippingtype"> تم التأجيل
-          </a></li>
-        <li *ngIf="hasPrivilege('ShippingType', 'view')"><a class="dropdown-item" routerLink="/shippingtype"> تم التسليم
-            جزئيا </a></li>
-        <li *ngIf="hasPrivilege('ShippingType', 'view')"><a class="dropdown-item" routerLink="/shippingtype"> الالغاء من
-            قبل المستلم </a></li>
-        <li *ngIf="hasPrivilege('ShippingType', 'view')"><a class="dropdown-item" routerLink="/shippingtype"> الرفض مع
-            الدفع </a></li>
-      </ul>
-    </li>
-
-    <li class="nav-item" *ngIf="hasPrivilege('OrderReports', 'view')">
-      <a class="nav-link" routerLink="/order/reports">
-        تقارير الطلبات <i class="fas fa-file-alt"></i>
-      </a>
-    </li>
-
-    <li class="nav-item" *ngIf="hasPrivilege('OrderAdd', 'add')">
-      <a class="nav-link" routerLink="/order/add">
-        طلب جديد <i class="fas fa-plus-circle"></i>
-      </a>
-    </li>
-  </ul> -->
-
-
-  <ul *ngIf="role=='merchant'"  class="nav flex-column me-5 align-items-end">
-    <li class="nav-item">
-      <a class="nav-link" routerLink='/merchant'>
-        الرئيسية <i class="fas fa-home"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link " id="navbarDropdown" role="button" routerLink='merchant/order/all'>
+      <a class="nav-link toggle" id="navbarDropdown" role="button" routerLink="/order/all">
         عرض الطلبات <i class="fas fa-shopping-cart"></i>
       </a>
       <!-- <ul class="sublist user-sublist" aria-labelledby="navbarDropdown">
@@ -212,16 +169,50 @@
       </ul> -->
     </li>
 
-    <!-- <li class="nav-item" *ngIf="hasPrivilege('OrderReports', 'view')">
+    <li class="nav-item" *ngIf="hasPrivilege('OrderReports', 'view')">
       <a class="nav-link" routerLink="/order/reports">
         تقارير الطلبات <i class="fas fa-file-alt"></i>
       </a>
-    </li> -->
+    </li>
 
+    <!-- <li class="nav-item" *ngIf="hasPrivilege('OrderAdd', 'add')">
+      <a class="nav-link" routerLink="/order/all">
+        طلب جديد <i class="fas fa-plus-circle"></i>
+      </a>
+    </li> -->
+  </ul>
+
+
+  <ul *ngIf="role=='merchant'"  class="nav flex-column me-5 align-items-end">
+    <li class="nav-item">
+      <a class="nav-link" routerLink='/merchant'>
+        الرئيسية <i class="fas fa-home"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " id="navbarDropdown" role="button" routerLink='merchant/order/all'>
+        عرض الطلبات <i class="fas fa-shopping-cart"></i>
+      </a>
+    </li>
     <li class="nav-item" >
       <a class="nav-link" routerLink="merchant/order/add">
         طلب جديد <i class="fas fa-plus-circle"></i>
       </a>
     </li>
   </ul>
+
+  <ul *ngIf="role=='representative'"  class="nav flex-column me-5 align-items-end">
+    <li class="nav-item">
+      <a class="nav-link" routerLink='/representative'>
+        الرئيسية <i class="fas fa-home"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " id="navbarDropdown" role="button" routerLink='representative/order/all'>
+        عرض الطلبات <i class="fas fa-shopping-cart"></i>
+      </a>
+    </li>
+  </ul>
+
+
 </div>

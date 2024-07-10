@@ -49,7 +49,7 @@ namespace ShippingSystem.Services
 
         public async Task<IEnumerable<OrderDto>> GetRepresentativeOrdersAsync(string Representativeid)
         {
-            var orders = await unit.OrderRepository.GetOrdersByCustomerNameAsync(Representativeid);
+            var orders = await unit.OrderRepository.GetRepresentativeOrdersAsync(Representativeid);
             return mapper.Map<IEnumerable<OrderDto>>(orders);
         }
 

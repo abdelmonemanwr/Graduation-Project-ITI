@@ -7,15 +7,17 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
 import { EmployeeRoutingModule } from './employee-routing.module';
+import { BranchModule } from '../branch/branch.module';
 
 
 @NgModule({
-  declarations: [AddEmployeeComponent,EmployeeListComponent],
+  declarations: [AddEmployeeComponent,EmployeeListComponent,],
   imports: [
     CommonModule,
     EmployeeRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    BranchModule
   ]
 })
 export class EmployeeModule { }

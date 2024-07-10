@@ -1,18 +1,17 @@
-
 import { Component } from '@angular/core';
-import { OrderStatus } from '../../../Models/Enums';
-import { Order } from '../../../Models/Order';
-import { OrderService } from '../../order/order.service';
-import { AuthService } from '../../auth/auth.service';
+import { OrderStatus } from '../../Models/Enums';
+import { Order } from '../../Models/Order';
+import { OrderService } from '../../features/order/order.service';
+import { AuthService } from '../../features/auth/auth.service';
 import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-mainscreen',
-  templateUrl: './mainscreen.component.html',
-  styleUrls: ['./mainscreen.component.css']
+  templateUrl: './RepresentativeMainScreen.component.html',
+  styleUrls: ['./RepresentativeMainScreen.component.css']
 })
-export class MainScreenComponent {
+export class RepresentativeMainScreenComponent {
+
   orderStatus =  OrderStatus
 
   orderStatusKeys = Object.keys(OrderStatus).filter(key => isNaN(Number(key)));
@@ -25,34 +24,28 @@ export class MainScreenComponent {
 
   ngOnInit(): void {
 
-    this.getData()
+    this.getRepresentativeData()
   }
 
   getEnumKeys<T extends object>(enumType: T): (keyof T)[] {
     return Object.keys(enumType).filter(key => isNaN(Number(key as any))) as (keyof T)[];
   }
 
-  getData()
+  getRepresentativeData()
   {
-    //  this.authService.getUserDetails().subscribe({
-    //   next:(data:any)=>{
-    //       this.represent_id = data.id
-    //       console.log(this.represent_id)
-    //       this.orderService.getRepresentativeOrders(this.represent_id).subscribe({
-    //         next:(data:Order[])=>{
-    //           this.orders = data
-    //           console.log(data)
-    //         }
-      
-    //       })
-    //   }}
-    // ) 
-
-    this.orderService.getAll().subscribe({
+     this.authService.getUserDetails().subscribe({
       next:(data:any)=>{
-        this.orders = data 
-      }
-    })
+          this.represent_id = data.id
+          console.log(this.represent_id)
+          this.orderService.getRepresentativeOrders(this.represent_id).subscribe({
+            next:(data:Order[])=>{
+              this.orders = data
+              console.log(data)
+            }
+      
+          })
+      }}
+    ) 
   }
 
 
@@ -68,4 +61,5 @@ export class MainScreenComponent {
 
     return false ;
   }
+
 }
